@@ -8,17 +8,22 @@ export default {
       // },
       colors: {
         blueButton: {
-          50: '#0094f6',
-          100: '#1b74e4',
+          50: '#4bb4f8',
+          100: '#0095f6',
+          150: '#0086dd',
         },
+
         textPrimary: {
           50: '#737373',
         },
         igSeparator: {
           50: '#dbdbdb',
+          100: '#fafafa',
+          150: '#a8a8a8',
         },
         facebook: {
           50: '#385185',
+          100: '#00376b',
         },
       },
       fontFamily: {
@@ -45,4 +50,12 @@ export default {
     },
   },
   plugins: [],
+  variants: {
+    extend: {
+      opacity: ['peer-focus'],
+      display: ['peer-focus'],
+      visibility: ['peer-focus'],
+      top: ['peer-focus'],
+    },
+  },
 }

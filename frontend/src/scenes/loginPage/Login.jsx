@@ -9,9 +9,14 @@ const Login = () => {
         <div className="flex flex-col w-[100%] items-center text-center my-[10px] p-[1px] border-igSeparator-50 border  leading-[18px]">
           <p className="text-[14px] text-center m-[20px]">
             Don't have an account?{' '}
-            <span className="text-blueButton-50 font-semibold  text-[14px]">
-              Sign up
-            </span>
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+            >
+              <span className="text-blueButton-50 font-semibold  text-[14px]">
+                Sign up
+              </span>
+            </a>
           </p>
         </div>
         <p className="text-[14px] my-[10px] mx-[20px]">Get the app.</p>
