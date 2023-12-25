@@ -43,11 +43,14 @@ const form = () => {
             onSubmit={handleSubmit}
             className="flex flex-col w-[100%] items-center border-igSeparator-50 border pb-[10px]"
           >
-            <img
-              src={title}
-              alt="Instagram"
-              className="max-w-[175px] max-h-[51px] mt-[36px] mb-[12px]  "
-            />
+            <div className=" mt-[40px] mb-[12px] cursor-pointer">
+              <img
+                src={title}
+                alt="Instagram"
+                className="max-w-[175px] max-h-[60px]"
+              />
+            </div>
+
             <div className="mt-[24px] flex flex-col w-[100%] items-center">
               <div className="block mb-[6px] px-[40px] w-full ">
                 <div className=" bg-igSeparator-100 text-[12px] box-border flex flex-row relative w-full">
@@ -65,7 +68,9 @@ const form = () => {
                     />
                     <span
                       className={`  w-fit  h-fit  select-none font-system-primary text-[12px]  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-2  ${
-                        values.email !== '' ? '-top-[1px] text-xs ' : ' top-2  '
+                        values.email !== ''
+                          ? '-top-[1px] text-[10px]  '
+                          : ' top-2 text-xs  '
                       } text-gray-600 cursor-text    transition-all`}
                     >
                       Phone number, username or email
@@ -93,8 +98,8 @@ const form = () => {
                     <span
                       className={`  w-fit  h-fit  select-none font-system-primary text-[12px]  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-2  ${
                         values.password !== ''
-                          ? '-top-[1px] text-xs '
-                          : ' top-2 '
+                          ? '-top-[1px] text-[10px]  '
+                          : ' top-2 text-xs'
                       } text-gray-600 cursor-text   transition-all`}
                     >
                       Password
@@ -107,10 +112,10 @@ const form = () => {
               <div className="my-[8px] px-[40px] w-full flex-shrink-0 flex-grow-0 flex flex-col items-stretch self-auto justify-start">
                 <button
                   type="submit"
-                  className={` w-full opacity-[0.7] rounded-lg text-center text-[14px] py-[7px] px-[16px] overflow-ellipsis font-medium leading-[18px] text-white  ${
+                  className={` w-full  rounded-lg text-center text-[14px] py-[7px] px-[16px] overflow-ellipsis font-medium leading-[18px]  text-white  ${
                     values.password !== '' && values.email !== ''
-                      ? 'bg-sky-500  hover:bg-blueButton-150 '
-                      : 'bg-sky-500/50'
+                      ? 'bg-[#0095f6] opacity-[1] hover:bg-blue-500 '
+                      : 'bg-[#0095f6] opacity-[0.7] disabled cursor-default'
                   } `}
                 >
                   Log In
