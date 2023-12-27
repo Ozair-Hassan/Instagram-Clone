@@ -4,10 +4,10 @@ import Form from './FormLogin'
 const Login = () => {
   return (
     <div className="flex h-screen  w-full justify-center">
-      <div className=" mt-3  flex-shrink-0">
+      <div className="  flex-shrink-0">
         <div className="w-[350px] mx-auto flex flex-col  items-center">
           <Form />
-          <div className="flex flex-col w-[100%] items-center text-center my-[10px] p-[1px] border-igSeparator-50 border  leading-[18px]">
+          <div className="flex flex-col w-[100%] items-center text-center mt-[10px] p-[1px] border-igSeparator-50 border  leading-[18px]">
             <p className="text-[14px] text-center m-[20px]">
               Don't have an account?{' '}
               <a

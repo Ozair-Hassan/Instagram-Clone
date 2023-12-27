@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Formik, useFormikContext } from 'formik'
 import * as yup from 'yup'
-import { facebookLight, title } from '../../assets'
+import { facebookLight, title, titleText } from '../../assets'
 
 const loginSchema = yup.object().shape({
   email: yup.string().email('Invalid Email').required('required'),
@@ -16,13 +16,10 @@ const openFacebook = () => {
   window.open('https://www.facebook.com', '_blank')
 }
 const form = () => {
-  const [isInputActiveEmail, setIsInputActiveEmail] = useState(false)
-  const [isInputActivePassword, setIsInputActivePassword] = useState(false)
-
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (isLogin) await login(values, onSubmitProps)
   }
-
+  const [password, setPassword] = useState('password')
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -43,18 +40,18 @@ const form = () => {
             onSubmit={handleSubmit}
             className="flex flex-col w-[100%] items-center border-igSeparator-50 border pb-[10px]"
           >
-            <div className=" mt-[40px] mb-[12px] cursor-pointer">
+            <div className=" mt-[52px] mb-[15px] cursor-pointer">
               <img
-                src={title}
+                src={titleText}
                 alt="Instagram"
-                className="max-w-[175px] max-h-[60px]"
+                className="max-w-[175px] max-h-[52px]"
               />
             </div>
 
             <div className="mt-[24px] flex flex-col w-[100%] items-center">
               <div className="block mb-[6px] px-[40px] w-full ">
                 <div className=" bg-igSeparator-100 text-[12px] box-border flex flex-row relative w-full">
-                  <label className="flex text-[100%] h-[36px] m-0 p-0 relative align-baseline w-full">
+                  <label className="flex text-[100%] h-[38px] m-0 p-0 relative align-baseline w-full">
                     <input
                       label="Email"
                       name="email"
@@ -63,14 +60,14 @@ const form = () => {
                       onChange={handleChange}
                       value={values.email}
                       className="border rounded-sm  w-full focus:outline-none focus:border-igSeparator-150  peer text-[12px]  font-system-primary text-left bg-igSeparator-100 font-normal pl-[8px] pt-[15px] pb-[10px]"
-                      // error={Boolean(touched.email) && Boolean(errors.email)}
-                      // helperText={touched.email && errors.email}
+                      error={Boolean(touched.email) && Boolean(errors.email)}
+                      helperText={touched.email && errors.email}
                     />
                     <span
-                      className={`  w-fit  h-fit  select-none font-system-primary text-[12px]  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-2  ${
+                      className={`  w-fit  h-fit  select-none font-system-primary text-xs  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-[10px]  ${
                         values.email !== ''
-                          ? '-top-[1px] text-[10px]  '
-                          : ' top-2 text-xs  '
+                          ? '-top-[1.0px] text-[10px]  '
+                          : ' top-[10px] text-xs  '
                       } text-gray-600 cursor-text    transition-all`}
                     >
                       Phone number, username or email
@@ -78,17 +75,16 @@ const form = () => {
                   </label>
                 </div>
               </div>
-
               <div className="block mb-[6px] px-[40px] w-full ">
-                <div className=" bg-igSeparator-100 text-[12px] box-border flex flex-row relative w-full">
-                  <label className="flex text-[100%] h-[36px] m-0 p-0 relative align-baseline w-full">
+                <div className=" bg-igSeparator-100  text-[12px] box-border flex flex-row relative w-full">
+                  <label className="flex text-[100%] h-[38px] m-0 p-0 relative align-baseline w-full">
                     <input
                       label="Password"
-                      type="password"
+                      type={password}
                       name="password"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      className="border rounded-sm  w-full focus:outline-none focus:border-igSeparator-150  peer text-[12px]  font-system-primary text-left bg-igSeparator-100 font-normal pl-[8px] pt-[20px] pb-[10px]"
+                      className="border rounded-sm  w-full focus:outline-none  focus:border-igSeparator-150  peer text-[12px]  font-system-primary text-left bg-igSeparator-100 font-normal pl-[8px] pt-[20px] pb-[10px]"
                       value={values.password}
                       // error={
                       //   Boolean(touched.password) && Boolean(errors.password)
@@ -96,10 +92,10 @@ const form = () => {
                       // helperText={touched.password && errors.password}
                     />
                     <span
-                      className={`  w-fit  h-fit  select-none font-system-primary text-[12px]  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-2  ${
+                      className={`  w-fit  h-fit  select-none font-system-primary text-xs  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-[10px]  ${
                         values.password !== ''
-                          ? '-top-[1px] text-[10px]  '
-                          : ' top-2 text-xs'
+                          ? '-top-[1.0px] text-[10px]  '
+                          : ' top-[10px] text-xs'
                       } text-gray-600 cursor-text   transition-all`}
                     >
                       Password
@@ -107,7 +103,8 @@ const form = () => {
                   </label>
                 </div>
               </div>
-
+              <button onClick={setPassword(`${!password}`)}>toggle</button>{' '}
+              {console.log('password')}
               {/* Buttons */}
               <div className="my-[8px] px-[40px] w-full flex-shrink-0 flex-grow-0 flex flex-col items-stretch self-auto justify-start">
                 <button
