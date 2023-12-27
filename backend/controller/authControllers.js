@@ -8,6 +8,18 @@ const generateJWT = (userId) => {
   const payload = { user: { id: userId } }
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '999h' })
 }
+// @route  GET api/auth
+// @desc   Test route
+// @access Private
+export const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password')
+    res.json(user)
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).send('Server Error')
+  }
+}
 
 // // @route  POST api/auth/register
 // // @desc   Register a user and get token
@@ -17,7 +29,7 @@ export const register = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() })
   }
-  const { userName, email, password } = req.body
+  const { userName, email, password, fullName } = req.body
   try {
     // Check if email is already in use
     if (await User.findOne({ email }))
@@ -29,7 +41,7 @@ export const register = async (req, res) => {
         .json({ errors: [{ msg: 'UserName already exists' }] })
 
     // create a new user
-    const user = new User({ email, password, userName })
+    const user = new User({ email, password, userName, fullName })
     // Encrypt password
     const salt = await bcrypt.genSalt(10)
     user.password = await bcrypt.hash(password, salt)

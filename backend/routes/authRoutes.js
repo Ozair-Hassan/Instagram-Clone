@@ -1,7 +1,12 @@
 import express, { Router } from 'express'
 import authMiddleware from '../middleware/authMiddleware.js'
 // // @ Controllers Import
-import { register, login, deleteUser } from '../controller/authControllers.js'
+import {
+  register,
+  login,
+  deleteUser,
+  getUser,
+} from '../controller/authControllers.js'
 // // @ Validation Rules Import
 import {
   validationRulesRegister,
@@ -16,8 +21,8 @@ router.post('/register', validationRulesRegister, register)
 // // Authenticate user and get token
 router.post('/login', validationRulesLogin, login)
 
-// // // Check token and get user from token
-// router.get('/', authMiddleware, getUser)
+// // Check token and get user from token
+router.get('/', authMiddleware, getUser)
 
 // // Check if user exists and delete
 router.delete('/delete', authMiddleware, deleteUser)

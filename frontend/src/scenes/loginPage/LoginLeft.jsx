@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { screenshot1, screenshot2, screenshot3, screenshot4 } from '../assets'
+import {
+  screenshot1,
+  screenshot2,
+  screenshot3,
+  screenshot4,
+} from '../../assets'
 const MobileAd = () => {
   const images = [screenshot1, screenshot2, screenshot3, screenshot4]
   const [activeIndex, setActiveIndex] = useState(0)

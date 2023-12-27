@@ -3,6 +3,7 @@ import { check, validationResult } from 'express-validator'
 // Validation rules for registering a new user
 export const validationRulesRegister = [
   check('userName', 'UserName is required').not().isEmpty(),
+  check('fullName', 'Full name is required').not().isEmpty(),
   check('email', 'Please include a valid email').isEmail(),
   check(
     'password',

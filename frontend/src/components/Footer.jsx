@@ -6,43 +6,78 @@ const Footer = () => {
       <div className="mt-[24px] flex flex-col items-stretch relative flex-grow-0">
         <div className=" flex flex-row justify-center items-center flex-wrap leading-[15px]">
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>Meta</a>
+            <a
+              href="#"
+              className="hover:underline"
+            >
+              Meta
+            </a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>About</a>
+            <a
+              href="#"
+              className="hover:underline"
+            >
+              About
+            </a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>Blog</a>
+            <a
+              href="#"
+              className="hover:underline"
+            >
+              Blog
+            </a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>Jobs</a>
+            <a href="#">Jobs</a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>Help</a>
+            <a
+              href="#"
+              className="hover:underline"
+            >
+              Help
+            </a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>API</a>
+            <a
+              href="#"
+              className="hover:underline"
+            >
+              API
+            </a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>Privacy</a>
+            <a href="#">Privacy</a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>Terms</a>
+            <a href="#">Terms</a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>Locations</a>
+            <a href="#">Locations</a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>Instagram Lite</a>
+            <a href="#">Instagram Lite</a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>Threads</a>
+            <a
+              href="#"
+              className="hover:underline"
+            >
+              Threads
+            </a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>Contact & Uploading Non-Users</a>
+            <a href="#">Contact & Uploading Non-Users</a>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <a>Meta Verified</a>
+            <a
+              href="#"
+              className="hover:underline"
+            >
+              Meta Verified
+            </a>
           </div>
         </div>
         <br />
@@ -75,7 +110,7 @@ const Footer = () => {
             </select>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <p>© 2023 Instagram from Meta</p>
+            <p>© 2023 Ozair Hassan. Not affiliated with Instagram or Meta.</p>
           </div>
         </div>
       </div>

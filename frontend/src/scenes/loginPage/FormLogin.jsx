@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Formik, useFormikContext } from 'formik'
 import * as yup from 'yup'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setLogin } from '../../redux/authSlice'
+import axios from 'axios'
 import { facebookLight, title, titleText } from '../../assets'
 
 const loginSchema = yup.object().shape({
@@ -16,10 +20,49 @@ const openFacebook = () => {
   window.open('https://www.facebook.com', '_blank')
 }
 const form = () => {
-  const handleFormSubmit = async (values, onSubmitProps) => {
-    if (isLogin) await login(values, onSubmitProps)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const login = async (values, onSubmitProps) => {
+    try {
+      const loginResponse = await axios.post('/api/auth/login', values)
+      const token = loginResponse.data.token
+
+      localStorage.setItem('token', token)
+      dispatch(setLogin({ token: token }))
+
+      //  token to fetch the user's details
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const userResponse = await axios.get('/api/auth', config)
+      const user = userResponse.data
+
+      // Store the user's details in Redux store
+      dispatch(setLogin({ user: user, token: token }))
+
+      // Navigate to the home page after successful login and fetching user
+      navigate('/home')
+    } catch (error) {
+      console.error(
+        'Login failed:',
+        error.response ? error.response.data : error.message
+      )
+    } finally {
+      // Reset the form in any case
+      onSubmitProps.resetForm()
+    }
   }
-  const [password, setPassword] = useState('password')
+  const handleFormSubmit = async (values, onSubmitProps) => {
+    await login(values, onSubmitProps)
+  }
+
+  const [passwordType, setPasswordType] = useState('password')
+  const togglePassword = () => {
+    setPasswordType(passwordType === 'password' ? 'text' : 'password')
+  }
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -33,7 +76,6 @@ const form = () => {
         handleBlur,
         handleChange,
         handleSubmit,
-        resetForm,
       }) => (
         <>
           <form
@@ -80,7 +122,7 @@ const form = () => {
                   <label className="flex text-[100%] h-[38px] m-0 p-0 relative align-baseline w-full">
                     <input
                       label="Password"
-                      type={password}
+                      type={passwordType}
                       name="password"
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -100,11 +142,19 @@ const form = () => {
                     >
                       Password
                     </span>
+                    <button
+                      type="button"
+                      className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[#262626] font-system font-semibold text-[14px] hover:opacity-[.75] ${
+                        values.password !== '' ? 'visible' : 'invisible'
+                      }`}
+                      onClick={togglePassword}
+                    >
+                      {passwordType === 'password' ? 'Show' : 'Hide'}
+                    </button>
                   </label>
                 </div>
               </div>
-              <button onClick={setPassword(`${!password}`)}>toggle</button>{' '}
-              {console.log('password')}
+
               {/* Buttons */}
               <div className="my-[8px] px-[40px] w-full flex-shrink-0 flex-grow-0 flex flex-col items-stretch self-auto justify-start">
                 <button
