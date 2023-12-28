@@ -6,6 +6,7 @@ import Dashboard from './scenes/dashboard/Dashboard'
 import { useSelector } from 'react-redux'
 import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom'
 import Register from './scenes/registerPage/Register'
+import ForgotPassword from './scenes/forgotPasswordPage/ForgotPassword'
 const App = () => {
   const isAuth = useSelector((state) => Boolean(state.auth.token))
   return (
@@ -19,6 +20,10 @@ const App = () => {
           <Route
             path="/register"
             element={<Register />}
+          />
+          <Route
+            path="/password-recovery"
+            element={<ForgotPassword />}
           />
           <Route
             path="/home"

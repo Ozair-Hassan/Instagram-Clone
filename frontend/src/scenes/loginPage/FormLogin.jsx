@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Formik, useFormikContext } from 'formik'
 import * as yup from 'yup'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setLogin } from '../../redux/authSlice'
 import axios from 'axios'
@@ -82,11 +82,11 @@ const form = () => {
             onSubmit={handleSubmit}
             className="flex flex-col w-[100%] items-center border-igSeparator-50 border pb-[10px]"
           >
-            <div className=" mt-[52px] mb-[15px] cursor-pointer">
+            <div className=" mt-[45px] mb-[15px] cursor-pointer">
               <img
                 src={titleText}
                 alt="Instagram"
-                className="max-w-[175px] max-h-[52px]"
+                className="max-w-[175px] max-h-[60px]"
               />
             </div>
 
@@ -189,12 +189,15 @@ const form = () => {
                   </span>
                 </span>
               </button>
-              <a className="my-[12px] leading-[16px] text-center text-[12px] cursor-pointer">
-                <span className="font-system-primary font-normal text-facebook-100 ">
+              <span className="my-[12px] leading-[16px] text-center text-[12px] cursor-pointer">
+                <Link
+                  to="/password-recovery"
+                  className="font-system-primary font-normal text-facebook-100 "
+                >
                   {' '}
                   Forgot password?
-                </span>
-              </a>
+                </Link>
+              </span>
             </div>
           </form>
         </>

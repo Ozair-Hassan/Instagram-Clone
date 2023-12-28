@@ -12,6 +12,8 @@ import screenshot4 from './screenshot4.png'
 import okTick from './okTick.png'
 import noTick from './noTick.png'
 import randomTick from './randomTick.png'
+import titleHeader from './titleHeader.png'
+import lock from './lock.png'
 
 export {
   microsoft,
@@ -28,4 +30,6 @@ export {
   okTick,
   noTick,
   randomTick,
+  titleHeader,
+  lock,
 }
