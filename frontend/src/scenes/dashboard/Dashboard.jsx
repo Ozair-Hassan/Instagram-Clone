@@ -1,20 +1,29 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
-const Dashboard = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
 
-  const handleLogout = () => {
-    dispatch({ type: 'auth/setLogout' })
-    localStorage.removeItem('token')
-    navigate('/')
-  }
+import NavBar from '../../components/NavBar'
+import Feed from '../feed/Feed'
+import Profile from '../profile/Profile'
+
+const Dashboard = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <button onClick={handleLogout}>Log Out</button>
-    </div>
+    <>
+      <div className="flex flex-row justify-evenly">
+        <div className="flex flex-col absolute left-0">
+          {' '}
+          <NavBar />
+        </div>
+
+        <div className="flex flex-col absolute top-0">
+          {' '}
+          <Feed />
+        </div>
+
+        <div className="flex flex-col absolute right-0">
+          {' '}
+          <Profile />
+        </div>
+      </div>
+    </>
   )
 }
 
