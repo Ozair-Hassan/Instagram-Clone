@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { setLogin } from '../../redux/authSlice'
 import axios from 'axios'
 import { facebookLight, title, titleText } from '../../assets'
+import Cookies from 'js-cookie'
 
 const loginSchema = yup.object().shape({
   email: yup.string().email('Invalid Email').required('required'),
@@ -28,16 +29,17 @@ const form = () => {
       const loginResponse = await axios.post('/api/auth/login', values)
       const token = loginResponse.data.token
 
-      localStorage.setItem('token', token)
+      // Store the token in a cookie instead of localStorage
+      Cookies.set('token', token, { expires: 7 })
       dispatch(setLogin({ token: token }))
 
-      //  token to fetch the user's details
+      // Token to fetch the user's details
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
-      const userResponse = await axios.get('/api/auth', config)
+      const userResponse = await axios.get('/api/auth/verifyToken', config)
       const user = userResponse.data
 
       // Store the user's details in Redux store
@@ -55,6 +57,7 @@ const form = () => {
       onSubmitProps.resetForm()
     }
   }
+
   const handleFormSubmit = async (values, onSubmitProps) => {
     await login(values, onSubmitProps)
   }

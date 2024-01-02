@@ -14,6 +14,7 @@ import {
   search,
   threads,
 } from '../assets/navbar'
+import Cookies from 'js-cookie'
 
 const NavBar = () => {
   const navigate = useNavigate()
@@ -27,7 +28,7 @@ const NavBar = () => {
 
   const handleLogout = () => {
     dispatch({ type: 'auth/setLogout' })
-    localStorage.removeItem('token')
+    Cookies.remove('token')
     navigate('/')
   }
 

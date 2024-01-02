@@ -14,6 +14,8 @@ import noTick from './noTick.png'
 import randomTick from './randomTick.png'
 import titleHeader from './titleHeader.png'
 import lock from './lock.png'
+import instagram from './Instagram.svg'
+import meta from './meta.png'
 
 export {
   microsoft,
@@ -32,4 +34,6 @@ export {
   randomTick,
   titleHeader,
   lock,
+  instagram,
+  meta,
 }

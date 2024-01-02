@@ -22,7 +22,7 @@ router.post('/register', validationRulesRegister, register)
 router.post('/login', validationRulesLogin, login)
 
 // // Check token and get user from token
-router.get('/', authMiddleware, getUser)
+router.get('/verifyToken', authMiddleware, getUser)
 
 // // Check if user exists and delete
 router.delete('/delete', authMiddleware, deleteUser)
