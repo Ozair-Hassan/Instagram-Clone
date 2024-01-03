@@ -16,6 +16,7 @@ import titleHeader from './titleHeader.png'
 import lock from './lock.png'
 import instagram from './Instagram.svg'
 import meta from './meta.png'
+import defaultProfilePicture from './defaultProfilePicture.jpg'
 
 export {
   microsoft,
@@ -36,4 +37,5 @@ export {
   lock,
   instagram,
   meta,
+  defaultProfilePicture,
 }

@@ -356,7 +356,7 @@ const form = () => {
                   type="submit"
                   className={` w-full  rounded-lg text-center text-[14px] py-[7px] px-[16px] overflow-ellipsis font-medium leading-[18px]  text-white  ${
                     values.password !== '' && values.email !== ''
-                      ? 'bg-[#0095f6] opacity-[1] hover:bg-blue-500 '
+                      ? 'bg-[#0095f6] opacity-[1] hover:bg-[#1877f2] '
                       : 'bg-[#0095f6] opacity-[0.7] disabled cursor-default'
                   } `}
                 >

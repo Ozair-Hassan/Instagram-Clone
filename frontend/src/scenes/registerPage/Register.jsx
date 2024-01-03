@@ -4,7 +4,7 @@ import Form from './FormRegister'
 import { Link } from 'react-router-dom'
 const Register = () => {
   return (
-    <div className="flex w-full max-h-[863.984px] mb-[109px] mt-3 pb-[32px] justify-center mx-auto items-stretch align-baseline lg:mb-[40px] lg:mt-[32px]">
+    <div className="flex w-full max-h-[863.984px] mb-[109px] mt-3 pb-[32px] justify-center mx-auto items-stretch align-baseline lg:mb-[70px] lg:mt-[32px]">
       <div className="flex h-screen  w-full justify-center">
         <div className="  flex-shrink-0">
           <div className="w-[350px] mx-auto flex flex-col  items-center">

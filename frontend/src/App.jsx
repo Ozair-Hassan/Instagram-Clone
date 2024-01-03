@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import Loading from './components/Loading'
 import Footer from './components/Footer'
+import Layout from './components/Layout'
 import LoginFull from './scenes/loginPage/LoginFull'
 import Dashboard from './scenes/dashboard/Dashboard'
 import Register from './scenes/registerPage/Register'
@@ -13,6 +14,7 @@ import { setLogin, setLogout } from './redux/authSlice'
 
 const App = () => {
   const dispatch = useDispatch()
+
   const isAuth = useSelector((state) => Boolean(state.auth.token))
   const [loading, setLoading] = useState(true)
 
@@ -50,22 +52,45 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={isAuth ? <Navigate to="/home" /> : <LoginFull />}
+          element={
+            isAuth ? (
+              <Navigate to="/home" />
+            ) : (
+              <Layout showFooter={true}>
+                <LoginFull />
+              </Layout>
+            )
+          }
         />
         <Route
           path="/register"
-          element={<Register />}
+          element={
+            <Layout>
+              <Register />
+            </Layout>
+          }
         />
         <Route
           path="/password-recovery"
-          element={<ForgotPassword />}
+          element={
+            <Layout>
+              <ForgotPassword />
+            </Layout>
+          }
         />
         <Route
           path="/home"
-          element={isAuth ? <Dashboard /> : <Navigate to="/" />}
+          element={
+            isAuth ? (
+              <Layout showFooter={false}>
+                <Dashboard />
+              </Layout>
+            ) : (
+              <Navigate to="/" />
+            )
+          }
         />
       </Routes>
-      <Footer />
     </BrowserRouter>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 
 import NavBar from '../../components/NavBar'
 import Feed from '../feed/Feed'
-import Profile from '../profile/Profile'
+import MiniProfile from '../profile/MiniProfile'
 
 const Dashboard = () => {
   return (
@@ -18,9 +18,9 @@ const Dashboard = () => {
           <Feed />
         </div>
 
-        <div className="flex flex-col absolute right-0">
+        <div className="flex flex-col absolute right-[83px] mt-1">
           {' '}
-          <Profile />
+          <MiniProfile />
         </div>
       </div>
     </>
