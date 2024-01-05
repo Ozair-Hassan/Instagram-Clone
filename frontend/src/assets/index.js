@@ -17,6 +17,8 @@ import lock from './lock.png'
 import instagram from './Instagram.svg'
 import meta from './meta.png'
 import defaultProfilePicture from './defaultProfilePicture.jpg'
+import scrollRight from './scrollRight.png'
+import scrollLeft from './scrollLeft.png'
 
 export {
   microsoft,
@@ -38,4 +40,6 @@ export {
   instagram,
   meta,
   defaultProfilePicture,
+  scrollRight,
+  scrollLeft,
 }

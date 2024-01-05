@@ -1,4 +1,5 @@
 /* index.css or global.css */
+@import 'swiper/css';
 @font-face {
   font-family: 'Instagram Sans';
   src: url('/fonts/InstagramSans-Bold.ttf') format('truetype');

@@ -7,18 +7,18 @@ import MiniProfile from '../profile/MiniProfile'
 const Dashboard = () => {
   return (
     <>
-      <div className="flex flex-row justify-evenly">
-        <div className="flex flex-col absolute left-0">
+      <div className="flex justify-between ">
+        <div className="flex-none ">
           {' '}
           <NavBar />
         </div>
 
-        <div className="flex flex-col absolute top-0">
+        <div className=" flex-none mx-auto ">
           {' '}
           <Feed />
         </div>
 
-        <div className="flex flex-col absolute right-[83px] mt-1">
+        <div className="flex-none absolute right-[83px]  mt-1">
           {' '}
           <MiniProfile />
         </div>
