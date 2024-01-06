@@ -1,5 +1,6 @@
 import React from 'react'
-import { defaultProfilePicture } from '../../assets'
+import { defaultProfilePicture, placeHolder } from '../../assets'
+import MediaDisplay from '../../components/MediaDisplay'
 
 const FYP = () => {
   return (
@@ -56,7 +57,7 @@ const FYP = () => {
                             </div>
                           </div>
                           {/* Post */}
-                          <div className="b-[1px] box-border block max-w-full p-[2px] relative align-baseline">
+                          <div className="b-[1px] box-border block max-w-full p-[1px] relative align-baseline">
                             <span className="leading-4 overflow-visible max-w-full break-words block relative whitespace-pre-line font-system-primary text-[12px]"></span>
                             <div className="flex">
                               <a
@@ -121,9 +122,25 @@ const FYP = () => {
                     </div>
                   </div>
                   {/* Post Content */}
-                  <div></div>
+                  <div className="rounded overflow-hidden border border-igSeparator-50">
+                    <div className="block">
+                      <div className="pb-[125%] relative block">
+                        <div className="w-full h-full absolute bg-black block">
+                          <div className="w-full h-full relative block z-0">
+                            <div className="w-full h-full relative block">
+                              <div className="w-full h-full relative block">
+                                <div className="w-full h-full flex justify-center items-center">
+                                  <MediaDisplay fileType={'image'} />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   {/* Comments & Likes */}
-                  <div></div>
+                  <div className="overflow-visible"></div>
                 </div>
               </div>
             </div>

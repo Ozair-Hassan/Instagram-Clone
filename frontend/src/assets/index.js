@@ -19,6 +19,8 @@ import meta from './meta.png'
 import defaultProfilePicture from './defaultProfilePicture.jpg'
 import scrollRight from './scrollRight.png'
 import scrollLeft from './scrollLeft.png'
+import placeHolder from './placeHolder.png'
+import testImagePost from './testImagePost.jpeg'
 
 export {
   microsoft,
@@ -42,4 +44,6 @@ export {
   defaultProfilePicture,
   scrollRight,
   scrollLeft,
+  placeHolder,
+  testImagePost,
 }
