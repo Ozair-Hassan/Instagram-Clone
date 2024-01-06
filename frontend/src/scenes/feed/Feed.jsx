@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-
-// Import Swiper styles
+import { Navigation } from 'swiper/modules'
+import FYP from './FYP'
+import { defaultProfilePicture } from '../../assets'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-// import required modules
-import { Navigation } from 'swiper/modules'
-import { scrollRight, scrollLeft, defaultProfilePicture } from '../../assets'
 const Feed = () => {
   const [showPrevButton, setShowPrevButton] = useState(false)
   const [showNextButton, setShowNextButton] = useState(true)
@@ -123,6 +121,8 @@ const Feed = () => {
           </div>
         </div>
       </div>
+      {/* For You Page */}
+      <FYP />
     </section>
   )
 }

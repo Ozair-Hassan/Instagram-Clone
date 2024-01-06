@@ -28,6 +28,43 @@
   font-style: normal;
 }
 
+/* tailwind.css or your custom CSS file */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .ring-radial-border::before {
+    content: '';
+    position: absolute;
+    top: -4px; /* Increase the border size */
+    left: -4px; /* Increase the border size */
+    right: -4px; /* Increase the border size */
+    bottom: -4px; /* Increase the border size */
+    z-index: -1;
+    background: linear-gradient(
+      225deg,
+      #833ab4,
+      #c13584,
+      #e1306c,
+      #fd1d1d,
+      #f56040,
+      #fcaf45
+    );
+    border-radius: 50%;
+    display: block;
+    width: calc(100% + 8px); /* Increase the total width of the border */
+    height: calc(100% + 8px); /* Increase the total height of the border */
+  }
+}
+
+.radial-border {
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+}

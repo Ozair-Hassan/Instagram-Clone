@@ -11,7 +11,7 @@ const MiniProfile = () => {
   const fullName = user?.fullName
   return (
     <>
-      <section className="max-w-[320px] w-[320px] flex flex-col h-screen pt-[30px] ">
+      <section className="max-w-[320px] w-[320px] flex flex-col h-screen pt-[30px] ml-[5px] ">
         {/* Users Mini Profile */}
         <div className="w-full h-[66px] mb-[10px] mt-[16px] items-center flex flex-row justify-between ">
           <div className="w-full overflow-visible mr-1 bg-transparent flex flex-col box-border static items-stretch self-auto justify-start">
