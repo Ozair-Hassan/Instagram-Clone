@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
-import { titleText } from '../assets'
+import { defaultProfilePicture, titleText } from '../assets'
 import {
   home,
   create,
@@ -44,7 +44,7 @@ const NavBar = () => {
                     <img
                       src={titleText}
                       alt="Instagram"
-                      className="max-w-[190px] max-h-[33px]"
+                      className="max-w-[190px] max-h-[33px] "
                     />
                   </div>
                 </div>
@@ -55,20 +55,21 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="my-[4px] py-3  w-full px-6 items-center  flex-row rounded-lg flex ">
+                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center flex-row rounded-lg flex">
                             <div>
-                              <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
+                              <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch justify-start relative">
                                 <div className="h-[27px] w-[27px] box-border block">
                                   <img
                                     src={home}
                                     alt=""
+                                    className="transition-transform group-hover:scale-110"
                                   />
                                 </div>
                               </div>
                             </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[10px] cursor-pointer">
+                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
                               <div className="w-full block">
-                                <span className=" leading-5 overflow-visible w-full text-[16px] font-bold break-words relative block ml-0">
+                                <span className="leading-5 overflow-visible w-full text-[16px] font-bold break-words relative block ml-0">
                                   Home
                                 </span>
                               </div>
@@ -87,18 +88,19 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="my-[4px] py-3  w-full px-6 items-center  flex-row rounded-lg flex ">
+                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
                             <div>
                               <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
                                 <div className="h-[27px] w-[27px] box-border block">
                                   <img
                                     src={search}
                                     alt=""
+                                    className="transition-transform group-hover:scale-110"
                                   />
                                 </div>
                               </div>
                             </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[10px] cursor-pointer">
+                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
                               <div className="w-full block">
                                 <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
                                   Search
@@ -119,18 +121,19 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="my-[4px] py-3  w-full px-6 items-center  flex-row rounded-lg flex ">
+                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
                             <div>
                               <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
                                 <div className="h-[27px] w-[27px] box-border block">
                                   <img
                                     src={explore}
                                     alt=""
+                                    className="transition-transform group-hover:scale-110"
                                   />
                                 </div>
                               </div>
                             </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[10px] cursor-pointer">
+                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
                               <div className="w-full block">
                                 <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
                                   Explore
@@ -151,18 +154,19 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="my-[4px] py-3  w-full px-6 items-center  flex-row rounded-lg flex ">
+                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
                             <div>
                               <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
-                                <div className="h-[27px] w-[27px] box-border block">
+                                <div className="h-[25px] w-[25px] box-border block">
                                   <img
                                     src={reels}
                                     alt=""
+                                    className="transition-transform group-hover:scale-110"
                                   />
                                 </div>
                               </div>
                             </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[10px] cursor-pointer">
+                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
                               <div className="w-full block">
                                 <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
                                   Reels
@@ -183,18 +187,19 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="my-[4px] py-3  w-full px-6 items-center  flex-row rounded-lg flex ">
+                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
                             <div>
                               <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
                                 <div className="h-[27px] w-[27px] box-border block">
                                   <img
                                     src={message}
                                     alt=""
+                                    className="transition-transform group-hover:scale-110"
                                   />
                                 </div>
                               </div>
                             </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[10px] cursor-pointer">
+                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
                               <div className="w-full block">
                                 <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
                                   Messages
@@ -215,18 +220,19 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="my-[4px] py-3  w-full px-6 items-center  flex-row rounded-lg flex ">
+                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
                             <div>
                               <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
                                 <div className="h-[27px] w-[27px] box-border block">
                                   <img
                                     src={notification}
                                     alt=""
+                                    className="transition-transform group-hover:scale-110"
                                   />
                                 </div>
                               </div>
                             </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[10px] cursor-pointer">
+                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
                               <div className="w-full block">
                                 <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
                                   Notifications
@@ -247,18 +253,19 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="my-[4px] py-3  w-full px-6 items-center  flex-row rounded-lg flex ">
+                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
                             <div>
                               <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
                                 <div className="h-[27px] w-[27px] box-border block">
                                   <img
                                     src={create}
                                     alt=""
+                                    className="transition-transform group-hover:scale-110"
                                   />
                                 </div>
                               </div>
                             </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[10px] cursor-pointer">
+                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
                               <div className="w-full block">
                                 <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
                                   Create
@@ -279,18 +286,19 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="my-[4px] py-3  w-full px-6 items-center  flex-row rounded-lg flex ">
+                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
                             <div>
                               <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
                                 <div className="h-[27px] w-[27px] box-border block">
                                   <img
-                                    src={home}
+                                    src={defaultProfilePicture}
                                     alt=""
+                                    className="transition-transform group-hover:scale-110"
                                   />
                                 </div>
                               </div>
                             </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[10px] cursor-pointer">
+                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
                               <div className="w-full block">
                                 <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
                                   Profile
@@ -312,18 +320,19 @@ const NavBar = () => {
                       <span>
                         <div>
                           <Link>
-                            <div className="my-[4px] py-3  w-full px-6 items-center  flex-row rounded-lg flex ">
+                            <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
                               <div>
                                 <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
                                   <div className="h-[27px] w-[27px] box-border block">
                                     <img
                                       src={threads}
                                       alt=""
+                                      className="transition-transform group-hover:scale-110"
                                     />
                                   </div>
                                 </div>
                               </div>
-                              <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[10px] cursor-pointer">
+                              <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
                                 <div className="w-full block">
                                   <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
                                     Threads
@@ -343,14 +352,15 @@ const NavBar = () => {
                     onClick={toggleDropdown}
                     className="block w-full text-left"
                   >
-                    <div className="my-[4px] py-3 w-full px-6 flex items-center flex-row rounded-lg">
+                    <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  flex items-center flex-row rounded-lg">
                       <div className="h-[27px] w-[27px]">
                         <img
                           src={menu}
                           alt="Menu"
+                          className="transition-transform group-hover:scale-110"
                         />
                       </div>
-                      <span className="ml-2 leading-5 text-[16px] font-normal">
+                      <span className="ml-[15px] leading-5 text-[16px] font-normal">
                         More
                       </span>
                     </div>
