@@ -112,7 +112,7 @@ const form = () => {
                     <span
                       className={`  w-fit  h-fit  select-none font-system-primary text-sm  m-0 overflow-hidden px-2 text-[#777777bd] right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-[10px]  ${
                         values.email !== ''
-                          ? '-top-[1px] text-[12px]  '
+                          ? '-translate-y-2 text-[12px]  '
                           : ' top-[12px] text-sm  '
                       } text-gray-600 cursor-text    transition-all`}
                     >
