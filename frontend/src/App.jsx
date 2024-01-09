@@ -10,7 +10,9 @@ import LoginFull from './scenes/loginPage/LoginFull'
 import Dashboard from './scenes/dashboard/Dashboard'
 import Register from './scenes/registerPage/Register'
 import ForgotPassword from './scenes/forgotPasswordPage/ForgotPassword'
+import ProfileSetup from './scenes/profile/ProfileSetup'
 import { setLogin, setLogout } from './redux/authSlice'
+import Profile from './scenes/profile/Profile'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -84,6 +86,31 @@ const App = () => {
             isAuth ? (
               <Layout showFooter={false}>
                 <Dashboard />
+              </Layout>
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+        {/* @ToDo  */}
+        <Route
+          path="/profile"
+          element={
+            isAuth ? (
+              <Layout showFooter={false}>
+                <Profile />
+              </Layout>
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+        <Route
+          path="/edit-profile"
+          element={
+            isAuth ? (
+              <Layout showFooter={false}>
+                <ProfileSetup />
               </Layout>
             ) : (
               <Navigate to="/" />

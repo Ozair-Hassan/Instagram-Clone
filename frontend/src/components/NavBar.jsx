@@ -285,7 +285,7 @@ const NavBar = () => {
                   <div className=" relative block">
                     <span>
                       <div>
-                        <Link>
+                        <Link to="/profile">
                           <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
                             <div>
                               <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
