@@ -3,11 +3,13 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { validationResult } from 'express-validator'
 import User from '../models/UserModel.js'
+import Profile from '../models/ProfileModel.js'
 
 const generateJWT = (userId) => {
   const payload = { user: { id: userId } }
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '999h' })
 }
+
 // @route  GET api/auth
 // @desc   Test route
 // @access Private
@@ -21,34 +23,60 @@ export const getUser = async (req, res) => {
   }
 }
 
-// // @route  POST api/auth/register
-// // @desc   Register a user and get token
-// // @access Public
+// @route  POST api/auth/register
+// @desc   Register a user, create a profile, and get token
+// @access Public
 export const register = async (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() })
   }
+
   const { userName, email, password, fullName } = req.body
+
   try {
-    // Check if email is already in use
-    if (await User.findOne({ email }))
+    // Check if email or username is already in use
+    if (await User.findOne({ email })) {
       return res.status(400).json({ errors: [{ msg: 'User already exists' }] })
-    // Check if username is already in use
-    if (await User.findOne({ userName }))
+    }
+    if (await User.findOne({ userName })) {
       return res
         .status(400)
         .json({ errors: [{ msg: 'UserName already exists' }] })
+    }
 
-    // create a new user
+    // Create a new user
     const user = new User({ email, password, userName, fullName })
+
     // Encrypt password
     const salt = await bcrypt.genSalt(10)
     user.password = await bcrypt.hash(password, salt)
+
+    // Save the user to the database
     await user.save()
-    // Generate and return JWT
+
+    // Generate JWT
     const token = generateJWT(user.id)
-    res.json({ token })
+
+    // The URL of the default profile picture already uploaded to Google Cloud Storage
+    const defaultProfilePictureUrl =
+      'https://storage.googleapis.com/profile-images-instagram-clone/defaultProfilePicture.jpg'
+
+    // Create a new profile with default values, including the default profile picture URL
+    const profile = new Profile({
+      userName: userName,
+      picturePath: defaultProfilePictureUrl, // Set the default profile picture URL
+      bio: '', // Default bio
+      followers: [],
+      following: [],
+      totalNumberOfPosts: 0,
+    })
+
+    // Save the profile to the database
+    await profile.save()
+
+    // Send back the token (and optionally the created profile)
+    res.json({ token }) // You can also just return the token if that's your original design
   } catch (error) {
     console.error(error.message)
     res.status(500).send('Server error')

@@ -2,20 +2,25 @@ import React, { useState } from 'react'
 import NavBar from '../../components/NavBar'
 import Footer from '../../components/Footer'
 import { Formik, Form, Field } from 'formik'
-
+import axios from 'axios'
 import { useSelector } from 'react-redux'
 import ImageUpload from '../../components/ImageUpload'
-import { defaultProfilePicture } from '../../assets'
+import Cookies from 'js-cookie'
+import { useDispatch } from 'react-redux'
+import { updateProfile } from '../../redux/profileSlice'
 
 const ProfileSetup = () => {
   const user = useSelector((state) => state.auth.user)
-
+  const profile = useSelector((state) => state.profile.currentProfile)
+  const dispatch = useDispatch()
+  // Accessing specific properties from the user object
+  const profilePicture = profile?.picturePath
+  const profileBio = profile?.bio
   // Accessing specific properties from the user object
   const userName = user?.userName
-  const fullName = user?.fullName
   const [profileImage, setProfileImage] = useState(null)
 
-  const [text, setText] = useState('')
+  const [text, setText] = useState(profileBio || '')
 
   const handleTextChange = (event) => {
     const newText = event.target.value
@@ -27,9 +32,44 @@ const ProfileSetup = () => {
     setProfileImage(file)
     // If needed, you can also update the Formik state here
   }
-  const handleSubmit = async (values) => {
-    // Process form submission here
-    // Upload image to cloud and save form data to MongoDB
+  const handleSubmit = async (values, { setSubmitting }) => {
+    // Check if the bio has been changed
+    if (text !== profileBio) {
+      try {
+        const token = Cookies.get('token')
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+
+        const response = await axios.put(
+          `/api/profile/${userName}`,
+          {
+            bio: text, // Use the text state directly
+          },
+          config
+        )
+
+        if (response.status === 200) {
+          console.log('Profile updated successfully')
+          // Dispatch an action to update the profile in the Redux store
+          // Include all necessary fields expected by the reducer
+          dispatch(
+            updateProfile({
+              userName: user.userName, // assuming `user` has the `userName`
+              bio: values.bio,
+            })
+          )
+        }
+      } catch (error) {
+        console.error('Error updating profile:', error)
+        // Handle error
+      }
+    }
+
+    setSubmitting(false)
   }
 
   return (
@@ -48,7 +88,7 @@ const ProfileSetup = () => {
                   <div className="rounded-[50%] box-border h-full w-full overflow-hidden relative">
                     <button>
                       <img
-                        src={defaultProfilePicture}
+                        src={profilePicture}
                         alt=""
                       />
                     </button>

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router'
-import { defaultProfilePicture, titleText } from '../assets'
+import { titleText } from '../assets'
 import {
   home,
   create,
@@ -17,6 +17,10 @@ import {
 import Cookies from 'js-cookie'
 
 const NavBar = () => {
+  const profile = useSelector((state) => state.profile.currentProfile)
+  const userName = profile?.userName
+  const profilePicture = profile?.picturePath
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
@@ -54,7 +58,7 @@ const NavBar = () => {
                   <div className=" relative block">
                     <span>
                       <div>
-                        <Link>
+                        <Link to="/home">
                           <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center flex-row rounded-lg flex">
                             <div>
                               <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch justify-start relative">
@@ -285,13 +289,13 @@ const NavBar = () => {
                   <div className=" relative block">
                     <span>
                       <div>
-                        <Link to="/profile">
+                        <Link to={`/profile/${userName}`}>
                           <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
                             <div>
                               <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
                                 <div className="h-[27px] w-[27px] box-border block">
                                   <img
-                                    src={defaultProfilePicture}
+                                    src={profilePicture}
                                     alt=""
                                     className="transition-transform group-hover:scale-110"
                                   />

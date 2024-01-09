@@ -3,12 +3,13 @@ import { useSelector } from 'react-redux'
 import { defaultProfilePicture } from '../../assets'
 
 const MiniProfile = () => {
-  // Accessing the user object from the auth slice of the Redux store
   const user = useSelector((state) => state.auth.user)
+  const profile = useSelector((state) => state.profile.currentProfile)
 
-  // Accessing specific properties from the user object
   const userName = user?.userName
   const fullName = user?.fullName
+  const profilePicture = profile?.picturePath
+
   return (
     <>
       <section className="max-w-[320px] w-[320px] flex flex-col h-screen pt-[30px] ml-[5px] ">
@@ -24,7 +25,7 @@ const MiniProfile = () => {
                       <div className="overflow-visible mr-2 bg-transparent flex flex-col box-border static items-stretch self-auto justify-start">
                         <div className="self-center block relative w-[60px]">
                           <img
-                            src={defaultProfilePicture}
+                            src={profilePicture}
                             alt="Profile Picture"
                             className="h-[56px] w-[56px]"
                           />

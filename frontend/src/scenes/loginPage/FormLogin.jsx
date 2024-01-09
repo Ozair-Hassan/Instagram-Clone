@@ -4,6 +4,7 @@ import * as yup from 'yup'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setLogin } from '../../redux/authSlice'
+import { setProfile } from '../../redux/profileSlice'
 import axios from 'axios'
 import { facebookLight, title, titleText } from '../../assets'
 import Cookies from 'js-cookie'
@@ -44,6 +45,16 @@ const form = () => {
 
       // Store the user's details in Redux store
       dispatch(setLogin({ user: user, token: token }))
+
+      // Fetch user's profile
+      const profileResponse = await axios.get(
+        `/api/profile/${user.userName}`,
+        config
+      )
+      const userProfile = profileResponse.data
+
+      // Store user's profile in Redux store
+      dispatch(setProfile(userProfile))
 
       // Navigate to the home page after successful login and fetching user
       navigate('/home')
