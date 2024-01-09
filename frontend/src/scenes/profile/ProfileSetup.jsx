@@ -33,35 +33,40 @@ const ProfileSetup = () => {
     // If needed, you can also update the Formik state here
   }
   const handleSubmit = async (values, { setSubmitting }) => {
-    // Check if the bio has been changed
-    if (text !== profileBio) {
+    if (text !== profileBio || profileImage) {
+      // Check if either bio or image has changed
       try {
         const token = Cookies.get('token')
+        const formData = new FormData()
+
+        // Append bio and image to formData
+        formData.append('bio', text)
+        if (profileImage) {
+          formData.append('image', profileImage)
+        }
+
         const config = {
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,
           },
         }
 
+        // Make the PUT request with formData
         const response = await axios.put(
           `/api/profile/${userName}`,
-          {
-            bio: text, // Use the text state directly
-          },
+          formData,
           config
         )
 
         if (response.status === 200) {
           console.log('Profile updated successfully')
-          // Dispatch an action to update the profile in the Redux store
-          // Include all necessary fields expected by the reducer
-          dispatch(
-            updateProfile({
-              userName: user.userName, // assuming `user` has the `userName`
-              bio: values.bio,
-            })
-          )
+
+          // Assuming the response contains the updated profile data
+          const updatedProfile = response.data
+
+          // Dispatch action to update profile in Redux store
+          dispatch(updateProfile(updatedProfile))
         }
       } catch (error) {
         console.error('Error updating profile:', error)
@@ -89,7 +94,8 @@ const ProfileSetup = () => {
                     <button>
                       <img
                         src={profilePicture}
-                        alt=""
+                        alt="Profile Picture"
+                        className="h-[38px] w-[38px] object-cover rounded-full transition-transform group-hover:scale-110" // Added scalable classes while keeping existing ones
                       />
                     </button>
                   </div>

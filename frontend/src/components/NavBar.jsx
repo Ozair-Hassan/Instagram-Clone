@@ -293,11 +293,11 @@ const NavBar = () => {
                           <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
                             <div>
                               <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
-                                <div className="h-[27px] w-[27px] box-border block">
+                                <div className=" box-border rounded-full border-2 border-black block">
                                   <img
                                     src={profilePicture}
-                                    alt=""
-                                    className="transition-transform group-hover:scale-110"
+                                    alt="Profile Picture"
+                                    className="h-[27px] w-[27px] object-cover rounded-full transition-transform group-hover:scale-110" // Added scalable classes while keeping existing ones
                                   />
                                 </div>
                               </div>

@@ -25,9 +25,9 @@ const MiniProfile = () => {
                       <div className="overflow-visible mr-2 bg-transparent flex flex-col box-border static items-stretch self-auto justify-start">
                         <div className="self-center block relative w-[60px]">
                           <img
-                            src={profilePicture}
+                            src={profilePicture || defaultProfilePicture}
                             alt="Profile Picture"
-                            className="h-[56px] w-[56px]"
+                            className="h-[56px] w-[56px] object-cover rounded-full" // Added 'object-cover' and 'rounded-full' for a circular image
                           />
                         </div>
                       </div>

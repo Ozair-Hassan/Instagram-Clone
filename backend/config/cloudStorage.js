@@ -1,12 +1,27 @@
+import dotenv from 'dotenv'
 // cloudStorage.js
-
+dotenv.config()
 import { Storage } from '@google-cloud/storage'
 
-// Initializes a client with the service account key file
-const storage = new Storage({
-  keyFilename: '../../googleCloudAuth.json',
-})
+// Make sure the GOOGLE_APPLICATION_CREDENTIALS_BASE64 environment variable is not undefined
+if (!process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64) {
+  console.error(
+    'The GOOGLE_APPLICATION_CREDENTIALS_BASE64 environment variable is not set.'
+  )
+  process.exit(1) // Exit the process if the environment variable is not set
+}
 
+// Decode the base64 environment variable to get the JSON credentials
+const credentialsJSON = JSON.parse(
+  Buffer.from(
+    process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64,
+    'base64'
+  ).toString()
+)
+
+const storage = new Storage({
+  credentials: credentialsJSON,
+})
 // Replace with the name of your Google Cloud Storage bucket
 const bucketName = 'profile-images-instagram-clone'
 
@@ -30,13 +45,19 @@ const uploadFile = async (file) => {
     })
 
     blobStream.on('finish', async () => {
-      // The public URL can be used to directly access the file via HTTP.
-      const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+      // Set the signed URL to expire in 10 years
+      const tenYears = 10 * 365 * 24 * 60 * 60 * 1000 // Convert 10 years to milliseconds
+      const options = {
+        action: 'read',
+        expires: Date.now() + tenYears,
+      }
 
-      // If you want to make the file public, uncomment the following line:
-      // await blob.makePublic();
-
-      resolve(publicUrl)
+      try {
+        const [signedUrl] = await blob.getSignedUrl(options)
+        resolve(signedUrl)
+      } catch (err) {
+        reject(err)
+      }
     })
 
     blobStream.end(file.buffer)

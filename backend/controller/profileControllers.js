@@ -1,6 +1,8 @@
 import express from 'express'
 import Profile from '../models/ProfileModel.js'
 
+import uploadFile from '../config/cloudStorage.js'
+
 // @route  GET api/profile/:userName
 // @desc   Fetch a profile based on userName
 // @access Private
@@ -28,27 +30,33 @@ export const getProfile = async (req, res) => {
 // @access Private
 export const updateProfile = async (req, res) => {
   try {
-    // Extract userName from the URL parameters
     const { userName } = req.params
 
-    // Check if the userName in the token matches the userName in the request
     if (req.user.userName !== userName) {
       return res.status(401).json({ msg: 'User not authorized' })
     }
 
-    // Find the profile based on userName
     const profile = await Profile.findOne({ userName })
-
     if (!profile) {
       return res.status(404).json({ msg: 'Profile not found' })
     }
 
-    // Update the profile with the new data
-    // Assume req.body contains the fields to be updated, e.g., bio, picturePath
+    let updateData = req.body
+
+    if (req.file) {
+      try {
+        const publicUrl = await uploadFile(req.file)
+        updateData.picturePath = publicUrl
+      } catch (error) {
+        console.error('Error uploading file:', error)
+        return res.status(500).send('Error uploading file')
+      }
+    }
+
     const updatedProfile = await Profile.findOneAndUpdate(
       { userName },
-      { $set: req.body },
-      { new: true } // Return the updated document
+      { $set: updateData },
+      { new: true }
     )
 
     res.json(updatedProfile)
