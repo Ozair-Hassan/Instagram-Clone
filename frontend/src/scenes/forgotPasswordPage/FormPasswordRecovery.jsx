@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { Formik, useFormikContext } from 'formik'
+import React from 'react'
+import { Formik } from 'formik'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setLogin } from '../../redux/authSlice'
-import axios from 'axios'
-import { facebookLight, lock } from '../../assets'
+import { lock } from '../../assets'
+import CustomInputFields from '../loginPage/CustomInputFields'
 
 const passwordRecoverySchema = yup.object().shape({
   email: yup.string().email('Invalid Email').required('required'),
@@ -28,7 +27,6 @@ const form = () => {
   //     localStorage.setItem('token', token)
   //     dispatch(setLogin({ token: token }))
 
-  //     //  token to fetch the user's details
   //     const config = {
   //       headers: {
   //         Authorization: `Bearer ${token}`,
@@ -37,10 +35,10 @@ const form = () => {
   //     const userResponse = await axios.get('/api/auth', config)
   //     const user = userResponse.data
 
-  //     // Store the user's details in Redux store
+  //
   //     dispatch(setLogin({ user: user, token: token }))
 
-  //     // Navigate to the home page after successful login and fetching user
+  //
   //     navigate('/home')
   //   } catch (error) {
   //     console.error(
@@ -48,7 +46,7 @@ const form = () => {
   //       error.response ? error.response.data : error.message
   //     )
   //   } finally {
-  //     // Reset the form in any case
+  //
   //     onSubmitProps.resetForm()
   //   }
   // }
@@ -63,14 +61,7 @@ const form = () => {
       initialValues={initalValuesPasswordRecovery}
       validationSchema={passwordRecoverySchema}
     >
-      {({
-        values,
-        errors,
-        touched,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-      }) => (
+      {({ values, handleBlur, handleChange, handleSubmit }) => (
         <>
           <form
             onSubmit={handleSubmit}
@@ -95,32 +86,16 @@ const form = () => {
               </span>
             </div>
             <div className=" flex flex-col w-[100%] items-center">
-              <div className="block mb-[6px] px-[40px] w-full ">
-                <div className=" bg-igSeparator-100 text-[12px] box-border flex flex-row relative w-full">
-                  <label className="flex text-[100%] h-[42px] m-0 p-0 relative align-baseline w-full">
-                    <input
-                      label="Email"
-                      name="email"
-                      type="email"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.email}
-                      className="border rounded-md  w-full focus:outline-none focus:border-igSeparator-150  peer text-[14px]  font-system-primary text-left bg-igSeparator-100 font-normal pl-[8px] pt-[15px] pb-[10px]"
-                      error={Boolean(touched.email) && Boolean(errors.email)}
-                      helperText={touched.email && errors.email}
-                    />
-                    <span
-                      className={`  w-fit  h-fit  select-none font-system-primary text-sm  m-0 overflow-hidden px-2 text-[#777777bd] right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-[10px]  ${
-                        values.email !== ''
-                          ? '-translate-y-2 text-[12px]  '
-                          : ' top-[12px] text-sm  '
-                      } text-gray-600 cursor-text    transition-all`}
-                    >
-                      Email, Phone or Username
-                    </span>
-                  </label>
-                </div>
-              </div>
+              <CustomInputFields
+                label={'Email'}
+                name={'email'}
+                type={'email'}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.email}
+                data={values.email !== '' ? 'true' : 'false'}
+                placeholder={'Phone number, username or email'}
+              />
 
               {/* Buttons */}
               <div className="my-[8px] px-[40px] w-full flex-shrink-0 flex-grow-0 flex flex-col items-stretch self-auto justify-start">

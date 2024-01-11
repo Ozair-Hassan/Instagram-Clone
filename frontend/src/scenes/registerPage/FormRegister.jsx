@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Formik } from 'formik'
 import * as yup from 'yup'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import CustomInputFields from '../loginPage/CustomInputFields'
 import axios from 'axios'
 import { facebookDark, titleText } from '../../assets'
@@ -24,14 +23,11 @@ const openFacebook = () => {
   window.open('https://www.facebook.com', '_blank')
 }
 const form = () => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const register = async (values, onSubmitProps) => {
     try {
-      const body = JSON.stringify(values)
-
-      const response = await axios.post('/api/auth/register', values)
+      await axios.post('/api/auth/register', values)
 
       navigate('/')
       onSubmitProps.resetForm()
@@ -47,10 +43,6 @@ const form = () => {
     await register(values, onSubmitProps)
   }
 
-  const [passwordType, setPasswordType] = useState('password')
-  const togglePassword = () => {
-    setPasswordType(passwordType === 'password' ? 'text' : 'password')
-  }
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -59,8 +51,7 @@ const form = () => {
     >
       {({
         values,
-        errors,
-        touched,
+
         handleBlur,
         handleChange,
         handleSubmit,

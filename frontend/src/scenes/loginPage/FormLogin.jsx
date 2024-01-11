@@ -125,6 +125,7 @@ const form = () => {
                   Log In
                 </button>
               </div>
+
               <div className="flex flex-row items-center justify-center mt-[10px] mb-[18px] px-[40px] w-full  ">
                 <div className="flex-grow w-full h-[1px] bg-igSeparator-50" />
                 <span className="mx-[18px] text-center text-textPrimary-50 font-medium uppercase text-[13px]">
@@ -132,6 +133,7 @@ const form = () => {
                 </span>
                 <div className="flex-grow flex-shrink w-full h-[1px] bg-igSeparator-50 " />
               </div>
+
               <button
                 onClick={openFacebook}
                 className="my-[8px] mx-auto"
