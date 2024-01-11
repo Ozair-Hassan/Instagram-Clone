@@ -7,6 +7,10 @@ const profileSchema = new mongoose.Schema({
     unique: true,
     ref: 'User',
   },
+  fullName: {
+    type: String,
+    ref: 'User',
+  },
   picturePath: {
     type: String,
     default: '',

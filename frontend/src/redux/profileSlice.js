@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   currentProfile: null,
+  profileData: null,
   allProfiles: [],
   error: null,
 }
@@ -12,6 +13,9 @@ export const profileSlice = createSlice({
   reducers: {
     setProfile: (state, action) => {
       state.currentProfile = action.payload
+    },
+    setProfileData: (state, action) => {
+      state.profileData = action.payload
     },
     updateProfile: (state, action) => {
       if (
@@ -35,6 +39,7 @@ export const profileSlice = createSlice({
 
 export const {
   setProfile,
+  setProfileData,
   updateProfile,
   clearProfile,
   setError,

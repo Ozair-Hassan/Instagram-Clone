@@ -12,7 +12,7 @@ import Register from './scenes/registerPage/Register'
 import ForgotPassword from './scenes/forgotPasswordPage/ForgotPassword'
 import ProfileSetup from './scenes/profile/ProfileSetup'
 import { setLogin, setLogout } from './redux/authSlice'
-import { setProfile } from './redux/profileSlice'
+import { setAllProfiles, setProfile } from './redux/profileSlice'
 import Profile from './scenes/profile/Profile'
 
 const App = () => {
@@ -45,6 +45,11 @@ const App = () => {
 
           // Dispatch setProfile action to update the profile state
           dispatch(setProfile(profileData))
+
+          const allProfile = await axios.get('/api/profile/', config)
+          const allProfileData = allProfile.data
+          // console.log(allProfileData)
+          dispatch(setAllProfiles(allProfileData))
         } catch (error) {
           Cookies.remove('token')
           dispatch(setLogout())

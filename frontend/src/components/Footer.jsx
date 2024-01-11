@@ -110,7 +110,7 @@ const Footer = () => {
             </select>
           </div>
           <div className="mb-[12px] overflow-visible flex items-stretch self-auto justify-start relative mx-[8px] ">
-            <p>© 2023 Ozair Hassan. Not affiliated with Instagram or Meta.</p>
+            <p>© 2024 Ozair Hassan. Not affiliated with Instagram or Meta.</p>
           </div>
         </div>
       </div>

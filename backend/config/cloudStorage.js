@@ -3,15 +3,13 @@ import dotenv from 'dotenv'
 dotenv.config()
 import { Storage } from '@google-cloud/storage'
 
-// Make sure the GOOGLE_APPLICATION_CREDENTIALS_BASE64 environment variable is not undefined
 if (!process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64) {
   console.error(
     'The GOOGLE_APPLICATION_CREDENTIALS_BASE64 environment variable is not set.'
   )
-  process.exit(1) // Exit the process if the environment variable is not set
+  process.exit(1)
 }
 
-// Decode the base64 environment variable to get the JSON credentials
 const credentialsJSON = JSON.parse(
   Buffer.from(
     process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64,
@@ -22,10 +20,9 @@ const credentialsJSON = JSON.parse(
 const storage = new Storage({
   credentials: credentialsJSON,
 })
-// Replace with the name of your Google Cloud Storage bucket
+
 const bucketName = 'profile-images-instagram-clone'
 
-// Reference to the bucket
 const bucket = storage.bucket(bucketName)
 
 /**
@@ -46,7 +43,7 @@ const uploadFile = async (file) => {
 
     blobStream.on('finish', async () => {
       // Set the signed URL to expire in 10 years
-      const tenYears = 10 * 365 * 24 * 60 * 60 * 1000 // Convert 10 years to milliseconds
+      const tenYears = 10 * 365 * 24 * 60 * 60 * 1000
       const options = {
         action: 'read',
         expires: Date.now() + tenYears,

@@ -268,9 +268,9 @@ const MiniProfile = () => {
               </li>
             </ul>
           </nav>
-          <span className="uppercase text-[#c7c7c7] text-[12px] font-normal font-system-primary">
-            <span className="leading-4 overflow-visible break-words relative block  ">
-              © 2024 Instagram from Meta
+          <span className="uppercase text-[#c7c7c7] text-[12px] font-normal font-system-primary overflow-hidden">
+            <span className="leading-4 break-words relative block text-wrap flex-wrap  ">
+              © 2024 Ozair Hassan. Not affiliated with Instagram or Meta.
             </span>
           </span>
         </div>

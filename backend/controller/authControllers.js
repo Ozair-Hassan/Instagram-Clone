@@ -66,6 +66,7 @@ export const register = async (req, res) => {
     const profile = new Profile({
       userName: userName,
       picturePath: defaultProfilePictureUrl, // Set the default profile picture URL
+      fullName: fullName, // This line should set the fullName
       bio: '', // Default bio
       followers: [],
       following: [],
