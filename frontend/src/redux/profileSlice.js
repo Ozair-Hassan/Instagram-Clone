@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  currentProfile: null, // The profile of the logged-in user
-  allProfiles: [], // Array to store all profiles
+  currentProfile: null,
+  allProfiles: [],
   error: null,
-  // You can add additional states related to profiles here
 }
 
 export const profileSlice = createSlice({
@@ -31,7 +30,6 @@ export const profileSlice = createSlice({
     setAllProfiles: (state, action) => {
       state.allProfiles = action.payload
     },
-    // Add more reducers here if needed
   },
 })
 

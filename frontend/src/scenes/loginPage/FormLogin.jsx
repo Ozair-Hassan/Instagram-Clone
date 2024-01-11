@@ -8,6 +8,7 @@ import { setProfile } from '../../redux/profileSlice'
 import axios from 'axios'
 import { facebookLight, title, titleText } from '../../assets'
 import Cookies from 'js-cookie'
+import CustomInputFields from './CustomInputFields'
 
 const loginSchema = yup.object().shape({
   email: yup.string().email('Invalid Email').required('required'),
@@ -30,11 +31,9 @@ const form = () => {
       const loginResponse = await axios.post('/api/auth/login', values)
       const token = loginResponse.data.token
 
-      // Store the token in a cookie instead of localStorage
       Cookies.set('token', token, { expires: 7 })
       dispatch(setLogin({ token: token }))
 
-      // Token to fetch the user's details
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -43,20 +42,16 @@ const form = () => {
       const userResponse = await axios.get('/api/auth/verifyToken', config)
       const user = userResponse.data
 
-      // Store the user's details in Redux store
       dispatch(setLogin({ user: user, token: token }))
 
-      // Fetch user's profile
       const profileResponse = await axios.get(
         `/api/profile/${user.userName}`,
         config
       )
       const userProfile = profileResponse.data
 
-      // Store user's profile in Redux store
       dispatch(setProfile(userProfile))
 
-      // Navigate to the home page after successful login and fetching user
       navigate('/home')
     } catch (error) {
       console.error(
@@ -64,7 +59,6 @@ const form = () => {
         error.response ? error.response.data : error.message
       )
     } finally {
-      // Reset the form in any case
       onSubmitProps.resetForm()
     }
   }
@@ -73,24 +67,13 @@ const form = () => {
     await login(values, onSubmitProps)
   }
 
-  const [passwordType, setPasswordType] = useState('password')
-  const togglePassword = () => {
-    setPasswordType(passwordType === 'password' ? 'text' : 'password')
-  }
   return (
     <Formik
       onSubmit={handleFormSubmit}
       initialValues={initalValuesLogin}
       validationSchema={loginSchema}
     >
-      {({
-        values,
-        errors,
-        touched,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-      }) => (
+      {({ values, handleBlur, handleChange, handleSubmit }) => (
         <>
           <form
             onSubmit={handleSubmit}
@@ -105,69 +88,29 @@ const form = () => {
             </div>
 
             <div className="mt-[24px] flex flex-col w-[100%] items-center">
-              <div className="block mb-[6px] px-[40px] w-full ">
-                <div className=" bg-igSeparator-100 text-[12px] box-border flex flex-row relative w-full">
-                  <label className="flex text-[100%] h-[38px] m-0 p-0 relative align-baseline w-full">
-                    <input
-                      label="Email"
-                      name="email"
-                      type="email"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.email}
-                      className="border rounded-sm  w-full focus:outline-none focus:border-igSeparator-150  peer text-[12px]  font-system-primary text-left bg-igSeparator-100 font-normal pl-[8px] pt-[15px] pb-[10px]"
-                      error={Boolean(touched.email) && Boolean(errors.email)}
-                      helperText={touched.email && errors.email}
-                    />
-                    <span
-                      className={`  w-fit  h-fit  select-none font-system-primary text-xs  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-[10px]  ${
-                        values.email !== ''
-                          ? '-translate-y-2 text-[10px]  '
-                          : ' top-[10px] text-xs  '
-                      } text-gray-600 cursor-text    transition-all`}
-                    >
-                      Phone number, username or email
-                    </span>
-                  </label>
-                </div>
-              </div>
-              <div className="block mb-[6px] px-[40px] w-full ">
-                <div className=" bg-igSeparator-100  text-[12px] box-border flex flex-row relative w-full">
-                  <label className="flex text-[100%] h-[38px] m-0 p-0 relative align-baseline w-full">
-                    <input
-                      label="Password"
-                      type={passwordType}
-                      name="password"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      className="border rounded-sm  w-full focus:outline-none  focus:border-igSeparator-150  peer text-[12px]  font-system-primary text-left bg-igSeparator-100 font-normal pl-[8px] pt-[20px] pb-[10px]"
-                      value={values.password}
-                      // error={
-                      //   Boolean(touched.password) && Boolean(errors.password)
-                      // }
-                      // helperText={touched.password && errors.password}
-                    />
-                    <span
-                      className={`  w-fit  h-fit  select-none font-system-primary text-xs  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-[10px]  ${
-                        values.password !== ''
-                          ? '-translate-y-2 text-[10px]  '
-                          : ' top-[10px] text-xs'
-                      } text-gray-600 cursor-text   transition-all`}
-                    >
-                      Password
-                    </span>
-                    <button
-                      type="button"
-                      className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[#262626] font-system font-semibold text-[14px] hover:opacity-[.75] ${
-                        values.password !== '' ? 'visible' : 'invisible'
-                      }`}
-                      onClick={togglePassword}
-                    >
-                      {passwordType === 'password' ? 'Show' : 'Hide'}
-                    </button>
-                  </label>
-                </div>
-              </div>
+              {/* Email */}
+              <CustomInputFields
+                label={'Email'}
+                name={'email'}
+                type={'email'}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.email}
+                data={values.email !== '' ? 'true' : 'false'}
+                placeholder={'Phone number, username or email'}
+              />
+              {/* Password */}
+              <CustomInputFields
+                label={'Password'}
+                name={'password'}
+                type={'password'}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.password}
+                data={values.password !== '' ? 'true' : 'false'}
+                placeholder={'Password'}
+                showButton={true}
+              />
 
               {/* Buttons */}
               <div className="my-[8px] px-[40px] w-full flex-shrink-0 flex-grow-0 flex flex-col items-stretch self-auto justify-start">

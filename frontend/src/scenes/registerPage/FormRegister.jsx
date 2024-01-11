@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { Formik, useFormikContext } from 'formik'
+import React, { useState } from 'react'
+import { Formik } from 'formik'
 import * as yup from 'yup'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setLogin } from '../../redux/authSlice'
+import CustomInputFields from '../loginPage/CustomInputFields'
 import axios from 'axios'
-import {
-  facebookDark,
-  title,
-  titleText,
-  okTick,
-  noTick,
-  randomTick,
-} from '../../assets'
+import { facebookDark, titleText } from '../../assets'
 
 const registerSchema = yup.object().shape({
   fullName: yup.string().required('required'),
@@ -36,24 +29,13 @@ const form = () => {
 
   const register = async (values, onSubmitProps) => {
     try {
-      //   // This allows us to send form info with an image
-      //   const formData = new FormData()
-      //   for (const key in values) {
-      //     formData.append(key, values[key])
-      //   }
-      //   // If 'picture' is a File object, append it directly.
-      //   if (values.picture instanceof File) {
-      //     formData.append('picture', values.picture, values.picture.name)
-      //   }
       const body = JSON.stringify(values)
 
       const response = await axios.post('/api/auth/register', values)
 
-      // Navigate to the home page after successful login and fetching user
       navigate('/')
       onSubmitProps.resetForm()
     } catch (error) {
-      // Handle the error here
       console.error(
         'Registration failed:',
         error.response ? error.response.data : error.message
@@ -124,189 +106,48 @@ const form = () => {
               <div className="flex-grow flex-shrink w-full h-[1px] bg-igSeparator-50 " />
             </div>
             <div className=" flex flex-col w-[100%] items-center">
-              <div className="block mb-[6px] px-[40px] w-full ">
-                <div className=" bg-igSeparator-100 text-[12px] box-border flex flex-row relative w-full">
-                  <label className="flex text-[100%] h-[38px] m-0 p-0 relative align-baseline w-full">
-                    <input
-                      label="Email"
-                      name="email"
-                      type="email"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.email}
-                      className="border rounded-sm  w-full focus:outline-none focus:border-igSeparator-150  peer text-[12px]  font-system-primary text-left bg-igSeparator-100 font-normal pl-[8px] pt-[15px] pb-[10px]"
-                      error={Boolean(touched.email) && Boolean(errors.email)}
-                      helperText={touched.email && errors.email}
-                    />
-                    <span
-                      className={`  w-fit  h-fit  select-none font-system-primary text-xs  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-[10px]  ${
-                        values.email !== ''
-                          ? '-translate-y-2 text-[10px]  '
-                          : ' top-[10px] text-xs  '
-                      } text-gray-600 cursor-text    transition-all`}
-                    >
-                      Mobile Number or Email
-                    </span>
-                    <span
-                      className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[#262626] font-system font-semibold text-[14px]  ${
-                        values.email !== '' ? 'visible' : 'invisible'
-                      }`}
-                    >
-                      {values.email !== '' ? (
-                        <img
-                          src={okTick}
-                          alt="OK"
-                        />
-                      ) : (
-                        <img
-                          src={noTick}
-                          alt="OK"
-                        />
-                      )}
-                    </span>
-                  </label>
-                </div>
-              </div>
-              <div className="block mb-[6px] px-[40px] w-full ">
-                <div className=" bg-igSeparator-100 text-[12px] box-border flex flex-row relative w-full">
-                  <label className="flex text-[100%] h-[38px] m-0 p-0 relative align-baseline w-full">
-                    <input
-                      label="Name"
-                      name="fullName"
-                      type="text"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.fullName}
-                      className="border rounded-sm  w-full focus:outline-none focus:border-igSeparator-150  peer text-[12px]  font-system-primary text-left bg-igSeparator-100 font-normal pl-[8px] pt-[15px] pb-[10px]"
-                      error={Boolean(touched.email) && Boolean(errors.email)}
-                      helperText={touched.email && errors.email}
-                    />
-                    <span
-                      className={`  w-fit  h-fit  select-none font-system-primary text-xs  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-[10px]  ${
-                        values.fullName !== ''
-                          ? '-translate-y-2 text-[10px]  '
-                          : ' top-[10px] text-xs  '
-                      } text-gray-600 cursor-text    transition-all`}
-                    >
-                      Full Name
-                    </span>
-                    <span
-                      className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[#262626] font-system font-semibold text-[14px]  ${
-                        values.fullName !== '' ? 'visible' : 'invisible'
-                      }`}
-                    >
-                      {values.fullName !== '' ? (
-                        <img
-                          src={okTick}
-                          alt="OK"
-                        />
-                      ) : (
-                        <img
-                          src={noTick}
-                          alt="OK"
-                        />
-                      )}
-                    </span>
-                  </label>
-                </div>
-              </div>
-              <div className="block mb-[6px] px-[40px] w-full ">
-                <div className=" bg-igSeparator-100 text-[12px] box-border flex flex-row relative w-full">
-                  <label className="flex text-[100%] h-[38px] m-0 p-0 relative align-baseline w-full">
-                    <input
-                      label="Username"
-                      name="userName"
-                      type="text"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.userName}
-                      className="border rounded-sm  w-full focus:outline-none focus:border-igSeparator-150  peer text-[12px]  font-system-primary text-left bg-igSeparator-100 font-normal pl-[8px] pt-[15px] pb-[10px]"
-                      error={Boolean(touched.email) && Boolean(errors.email)}
-                      helperText={touched.email && errors.email}
-                    />
-                    <span
-                      className={`  w-fit  h-fit  select-none font-system-primary text-xs  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-[10px]  ${
-                        values.userName !== ''
-                          ? '-translate-y-2 text-[10px]  '
-                          : ' top-[10px] text-xs  '
-                      } text-gray-600 cursor-text    transition-all`}
-                    >
-                      Username
-                    </span>
-                    <span
-                      className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[#262626] font-system font-semibold text-[14px]  ${
-                        values.userName !== '' ? 'visible' : 'invisible'
-                      }`}
-                    >
-                      {values.userName !== '' ? (
-                        <img
-                          src={okTick}
-                          alt="OK"
-                        />
-                      ) : (
-                        <img
-                          src={noTick}
-                          alt="OK"
-                        />
-                      )}
-                    </span>
-                  </label>
-                </div>
-              </div>
-              <div className="block  px-[40px] w-full ">
-                <div className=" bg-igSeparator-100  text-[12px] box-border flex flex-row relative w-full">
-                  <label className="flex text-[100%] h-[38px] m-0 p-0 relative align-baseline w-full">
-                    <input
-                      label="Password"
-                      type={passwordType}
-                      name="password"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      className="border rounded-sm  w-full focus:outline-none  focus:border-igSeparator-150  peer text-[12px]  font-system-primary text-left bg-igSeparator-100 font-normal pl-[8px] pt-[20px] pb-[10px]"
-                      value={values.password}
-                      // error={
-                      //   Boolean(touched.password) && Boolean(errors.password)
-                      // }
-                      // helperText={touched.password && errors.password}
-                    />
-                    <span
-                      className={`  w-fit  h-fit  select-none font-system-primary text-xs  m-0 overflow-hidden px-2  right-0 text-ellipsis origin-left  ease-out duration-100 align-middle whitespace-nowrap  absolute left-0 top-[10px]  ${
-                        values.password !== ''
-                          ? ' text-[10px] -translate-y-2'
-                          : ' top-[10px] text-xs'
-                      } text-gray-600 cursor-text   transition-all`}
-                    >
-                      Password
-                    </span>
-                    <span
-                      className={`absolute right-14 top-1/2 transform -translate-y-1/2 text-[#262626] font-system font-semibold text-[14px]  ${
-                        values.password !== '' ? 'visible' : 'invisible'
-                      }`}
-                    >
-                      {values.password !== '' ? (
-                        <img
-                          src={okTick}
-                          alt="OK"
-                        />
-                      ) : (
-                        <img
-                          src={noTick}
-                          alt="OK"
-                        />
-                      )}
-                    </span>
-                    <button
-                      type="button"
-                      className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[#262626] font-system font-semibold text-[14px] hover:opacity-[.75] ${
-                        values.password !== '' ? 'visible' : 'invisible'
-                      }`}
-                      onClick={togglePassword}
-                    >
-                      {passwordType === 'password' ? 'Show' : 'Hide'}
-                    </button>
-                  </label>
-                </div>
-              </div>
+              <CustomInputFields
+                label={'Email'}
+                name={'email'}
+                type={'email'}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.email}
+                data={values.email !== '' ? 'true' : 'false'}
+                placeholder={'Phone number, username or email'}
+              />
+              <CustomInputFields
+                label={'Fullname'}
+                name={'fullName'}
+                type={'text'}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.fullName}
+                data={values.fullName !== '' ? 'true' : 'false'}
+                placeholder={'Full Name'}
+              />
+              <CustomInputFields
+                label={'Username'}
+                name={'userName'}
+                type={'text'}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.userName}
+                data={values.userName !== '' ? 'true' : 'false'}
+                placeholder={'Username'}
+              />
+
+              <CustomInputFields
+                label={'Password'}
+                name={'password'}
+                type={'password'}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.password}
+                data={values.password !== '' ? 'true' : 'false'}
+                placeholder={'Password'}
+                showButton={true}
+              />
               <p className="text-[#737373] text-[12px] leading-4 my-[10px] mx-[40px] text-center block ">
                 <span className="leading-4 max-w-full font-normal break-words whitespace-pre-line font-system-primary text-[12px]  ">
                   People who use our service may have uploaded your contact
