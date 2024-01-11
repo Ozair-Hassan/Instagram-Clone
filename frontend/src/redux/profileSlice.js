@@ -28,6 +28,9 @@ export const profileSlice = createSlice({
     clearProfile: (state) => {
       state.currentProfile = null
     },
+    clearProfileData: (state) => {
+      state.profileData = null
+    },
     setError: (state, action) => {
       state.error = action.payload
     },
