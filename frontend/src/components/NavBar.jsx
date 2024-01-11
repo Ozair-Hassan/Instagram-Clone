@@ -55,127 +55,49 @@ const NavBar = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-full flex-grow block ">
-                <div className="block ">
-                  <div className=" relative block">
-                    <span>
-                      <div>
-                        <Link
-                          to="/home"
-                          className="font-bold"
-                        >
-                          <NavBarIcons
-                            icon={home}
-                            text={'Home'}
-                          />
-                        </Link>
-                      </div>
-                    </span>
-                  </div>
-                </div>
+              <div className="font-bold">
+                <NavBarIcons
+                  icon={home}
+                  text={'Home'}
+                  link={'/home'}
+                />
               </div>
               {/* Search */}
-              <div className="w-full flex-grow block ">
-                <div className="block ">
-                  <div className=" relative block">
-                    <span>
-                      <div>
-                        <Link>
-                          <NavBarIcons
-                            icon={search}
-                            text={'Search'}
-                          />
-                        </Link>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <NavBarIcons
+                icon={search}
+                text={'Search'}
+                link={'/home'}
+              />
               {/* Explore */}
-              <div className="w-full flex-grow block ">
-                <div className="block ">
-                  <div className=" relative block">
-                    <span>
-                      <div>
-                        <Link>
-                          <NavBarIcons
-                            icon={explore}
-                            text={'Explore'}
-                          />
-                        </Link>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <NavBarIcons
+                icon={explore}
+                text={'Explore'}
+                link={'/home'}
+              />
               {/* Reels */}
-              <div className="w-full flex-grow block ">
-                <div className="block ">
-                  <div className=" relative block">
-                    <span>
-                      <div>
-                        <Link>
-                          <NavBarIcons
-                            icon={reels}
-                            text={'Reels'}
-                          />
-                        </Link>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <NavBarIcons
+                icon={reels}
+                text={'Reels'}
+                link={'/home'}
+              />
               {/* Messages */}
-              <div className="w-full flex-grow block ">
-                <div className="block ">
-                  <div className=" relative block">
-                    <span>
-                      <div>
-                        <Link>
-                          <NavBarIcons
-                            icon={message}
-                            text={'Messages'}
-                          />
-                        </Link>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <NavBarIcons
+                icon={message}
+                text={'Messages'}
+                link={'/home'}
+              />
               {/* Notifications */}
-              <div className="w-full flex-grow block ">
-                <div className="block ">
-                  <div className=" relative block">
-                    <span>
-                      <div>
-                        <Link>
-                          <NavBarIcons
-                            icon={notification}
-                            text={'Notifications'}
-                          />
-                        </Link>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <NavBarIcons
+                icon={notification}
+                text={'Notifications'}
+                link={'/home'}
+              />
               {/* Create */}
-              <div className="w-full flex-grow block ">
-                <div className="block ">
-                  <div className=" relative block">
-                    <span>
-                      <div>
-                        <Link>
-                          <NavBarIcons
-                            icon={create}
-                            text={'Create'}
-                          />
-                        </Link>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <NavBarIcons
+                icon={create}
+                text={'Create'}
+                link={'/home'}
+              />
               {/* Profile */}
               <div className="w-full flex-grow block ">
                 <div className="block ">
@@ -211,22 +133,11 @@ const NavBar = () => {
               </div>
               <div className="absolute bottom-5 flex flex-col w-full">
                 {/* Threads */}
-                <div className="w-full flex-grow block ">
-                  <div className="block ">
-                    <div className=" relative block">
-                      <span>
-                        <div>
-                          <Link>
-                            <NavBarIcons
-                              icon={threads}
-                              text={'Threads'}
-                            />
-                          </Link>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                <NavBarIcons
+                  icon={threads}
+                  text={'Threads'}
+                  link={'/home'}
+                />
                 {/* More */}
                 <div className="w-full flex-grow">
                   <button
@@ -248,16 +159,19 @@ const NavBar = () => {
                   </button>
                   {isOpen && (
                     <div className="origin-top-right absolute left-[24px]  bottom-12 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-40">
-                      {console.log(isOpen)}
                       <div className="py-1">
-                        {/* Add your menu items here */}
+                        <button
+                          onClick={{}}
+                          className="text-gray-700 block px-4 py-2 text-sm"
+                        >
+                          Settings
+                        </button>
                         <button
                           onClick={handleLogout}
                           className="text-gray-700 block px-4 py-2 text-sm"
                         >
                           Log out
                         </button>
-                        {/* You can add more items here */}
                       </div>
                     </div>
                   )}
