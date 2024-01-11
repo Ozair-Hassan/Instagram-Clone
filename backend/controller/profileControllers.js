@@ -3,12 +3,32 @@ import Profile from '../models/ProfileModel.js'
 
 import uploadFile from '../config/cloudStorage.js'
 
+// @route  GET api/profile/
+// @desc   Fetch all profiles
+// @access Private
+export const getAllProfiles = async (req, res) => {
+  try {
+    // Find all profiles
+    const profiles = await Profile.find({})
+
+    // Check if profiles exist
+    if (!profiles || profiles.length === 0) {
+      return res.status(404).json({ msg: 'No profiles found' })
+    }
+
+    res.json(profiles)
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).send('Server Error')
+  }
+}
+
 // @route  GET api/profile/:userName
 // @desc   Fetch a profile based on userName
 // @access Private
 export const getProfile = async (req, res) => {
   try {
-    // Extract userName from the route parameters
+    // Extract userName from the route parametersEdit
     const { userName } = req.params
 
     // Find the profile based on userName

@@ -15,6 +15,7 @@ import {
   threads,
 } from '../assets/navbar'
 import Cookies from 'js-cookie'
+import NavBarIcons from './NavBarIcons'
 
 const NavBar = () => {
   const profile = useSelector((state) => state.profile.currentProfile)
@@ -33,6 +34,7 @@ const NavBar = () => {
   const handleLogout = () => {
     dispatch({ type: 'auth/setLogout' })
     Cookies.remove('token')
+    dispatch({ type: 'profile/clearProfile' })
     navigate('/')
   }
 
@@ -58,27 +60,14 @@ const NavBar = () => {
                   <div className=" relative block">
                     <span>
                       <div>
-                        <Link to="/home">
-                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center flex-row rounded-lg flex">
-                            <div>
-                              <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch justify-start relative">
-                                <div className="h-[27px] w-[27px] box-border block">
-                                  <img
-                                    src={home}
-                                    alt=""
-                                    className="transition-transform group-hover:scale-110"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
-                              <div className="w-full block">
-                                <span className="leading-5 overflow-visible w-full text-[16px] font-bold break-words relative block ml-0">
-                                  Home
-                                </span>
-                              </div>
-                            </div>
-                          </div>
+                        <Link
+                          to="/home"
+                          className="font-bold"
+                        >
+                          <NavBarIcons
+                            icon={home}
+                            text={'Home'}
+                          />
                         </Link>
                       </div>
                     </span>
@@ -92,26 +81,10 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
-                            <div>
-                              <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
-                                <div className="h-[27px] w-[27px] box-border block">
-                                  <img
-                                    src={search}
-                                    alt=""
-                                    className="transition-transform group-hover:scale-110"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
-                              <div className="w-full block">
-                                <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
-                                  Search
-                                </span>
-                              </div>
-                            </div>
-                          </div>
+                          <NavBarIcons
+                            icon={search}
+                            text={'Search'}
+                          />
                         </Link>
                       </div>
                     </span>
@@ -125,26 +98,10 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
-                            <div>
-                              <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
-                                <div className="h-[27px] w-[27px] box-border block">
-                                  <img
-                                    src={explore}
-                                    alt=""
-                                    className="transition-transform group-hover:scale-110"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
-                              <div className="w-full block">
-                                <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
-                                  Explore
-                                </span>
-                              </div>
-                            </div>
-                          </div>
+                          <NavBarIcons
+                            icon={explore}
+                            text={'Explore'}
+                          />
                         </Link>
                       </div>
                     </span>
@@ -158,26 +115,10 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
-                            <div>
-                              <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
-                                <div className="h-[25px] w-[25px] box-border block">
-                                  <img
-                                    src={reels}
-                                    alt=""
-                                    className="transition-transform group-hover:scale-110"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
-                              <div className="w-full block">
-                                <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
-                                  Reels
-                                </span>
-                              </div>
-                            </div>
-                          </div>
+                          <NavBarIcons
+                            icon={reels}
+                            text={'Reels'}
+                          />
                         </Link>
                       </div>
                     </span>
@@ -191,26 +132,10 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
-                            <div>
-                              <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
-                                <div className="h-[27px] w-[27px] box-border block">
-                                  <img
-                                    src={message}
-                                    alt=""
-                                    className="transition-transform group-hover:scale-110"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
-                              <div className="w-full block">
-                                <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
-                                  Messages
-                                </span>
-                              </div>
-                            </div>
-                          </div>
+                          <NavBarIcons
+                            icon={message}
+                            text={'Messages'}
+                          />
                         </Link>
                       </div>
                     </span>
@@ -224,26 +149,10 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
-                            <div>
-                              <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
-                                <div className="h-[27px] w-[27px] box-border block">
-                                  <img
-                                    src={notification}
-                                    alt=""
-                                    className="transition-transform group-hover:scale-110"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
-                              <div className="w-full block">
-                                <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
-                                  Notifications
-                                </span>
-                              </div>
-                            </div>
-                          </div>
+                          <NavBarIcons
+                            icon={notification}
+                            text={'Notifications'}
+                          />
                         </Link>
                       </div>
                     </span>
@@ -257,26 +166,10 @@ const NavBar = () => {
                     <span>
                       <div>
                         <Link>
-                          <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
-                            <div>
-                              <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
-                                <div className="h-[27px] w-[27px] box-border block">
-                                  <img
-                                    src={create}
-                                    alt=""
-                                    className="transition-transform group-hover:scale-110"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
-                              <div className="w-full block">
-                                <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
-                                  Create
-                                </span>
-                              </div>
-                            </div>
-                          </div>
+                          <NavBarIcons
+                            icon={create}
+                            text={'Create'}
+                          />
                         </Link>
                       </div>
                     </span>
@@ -297,7 +190,7 @@ const NavBar = () => {
                                   <img
                                     src={profilePicture}
                                     alt="Profile Picture"
-                                    className="h-[27px] w-[27px] object-cover rounded-full transition-transform group-hover:scale-110" // Added scalable classes while keeping existing ones
+                                    className="h-[27px] w-[27px] object-cover rounded-full transition-transform group-hover:scale-110"
                                   />
                                 </div>
                               </div>
@@ -324,26 +217,10 @@ const NavBar = () => {
                       <span>
                         <div>
                           <Link>
-                            <div className="group my-[4px]  py-3 w-full px-6 hover:bg-gray-100  items-center  flex-row rounded-lg flex ">
-                              <div>
-                                <div className="overflow-visible bg-transparent box-border flex flex-col items-stretch  justify-start relative">
-                                  <div className="h-[27px] w-[27px] box-border block">
-                                    <img
-                                      src={threads}
-                                      alt=""
-                                      className="transition-transform group-hover:scale-110"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="opacity-100 flex h-6 w-fit overflow-hidden items-center box-border pl-[15px] cursor-pointer">
-                                <div className="w-full block">
-                                  <span className=" leading-5 overflow-visible w-full text-[16px] font-normal break-words relative block ml-0">
-                                    Threads
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
+                            <NavBarIcons
+                              icon={threads}
+                              text={'Threads'}
+                            />
                           </Link>
                         </div>
                       </span>

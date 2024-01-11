@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   currentProfile: null, // The profile of the logged-in user
+  allProfiles: [], // Array to store all profiles
   error: null,
   // You can add additional states related to profiles here
 }
@@ -14,7 +15,6 @@ export const profileSlice = createSlice({
       state.currentProfile = action.payload
     },
     updateProfile: (state, action) => {
-      // Assuming the action.payload contains the updated profile fields
       if (
         state.currentProfile &&
         state.currentProfile.userName === action.payload.userName
@@ -28,10 +28,19 @@ export const profileSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload
     },
+    setAllProfiles: (state, action) => {
+      state.allProfiles = action.payload
+    },
+    // Add more reducers here if needed
   },
 })
 
-export const { setProfile, updateProfile, clearProfile, setError } =
-  profileSlice.actions
+export const {
+  setProfile,
+  updateProfile,
+  clearProfile,
+  setError,
+  setAllProfiles,
+} = profileSlice.actions
 
 export default profileSlice.reducer

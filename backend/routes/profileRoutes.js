@@ -5,14 +5,17 @@ import {
   updateProfile,
   followUser,
   unfollowUser,
+  getAllProfiles,
 } from '../controller/profileControllers.js'
 import multer from 'multer'
 
 const router = express.Router()
 const upload = multer({ storage: multer.memoryStorage() })
 
+router.get('/', authMiddleware, getAllProfiles)
+
 // Fetch a profile based on userName
-router.get('/:userName', getProfile)
+router.get('/:userName', authMiddleware, getProfile)
 
 // Edit a profile
 router.put('/:userName', authMiddleware, upload.single('image'), updateProfile)

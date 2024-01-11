@@ -1,6 +1,10 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { defaultProfilePicture } from '../../assets'
+import Suggestion from './Suggestion'
+import { setAllProfiles } from '../../redux/profileSlice'
+import Cookies from 'js-cookie'
+import axios from 'axios'
 
 const MiniProfile = () => {
   const user = useSelector((state) => state.auth.user)
@@ -9,6 +13,48 @@ const MiniProfile = () => {
   const userName = user?.userName
   const fullName = user?.fullName
   const profilePicture = profile?.picturePath
+
+  const dispatch = useDispatch()
+  const allProfiles = useSelector((state) => state.profile.allProfiles)
+  const [selectedProfiles, setSelectedProfiles] = useState([])
+
+  useEffect(() => {
+    const fetchAllProfiles = async () => {
+      const token = Cookies.get('token')
+      if (token) {
+        try {
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+          const response = await axios.get('/api/profile/', config)
+          const profiles = response.data
+
+          dispatch(setAllProfiles(profiles))
+
+          // Filter out the logged-in user's profile
+          const filteredProfiles = profiles.filter(
+            (p) => p.userName !== userName
+          )
+
+          // Randomly select 4 profiles
+          const shuffledProfiles = filteredProfiles.sort(
+            () => 0.5 - Math.random()
+          )
+          const selectedProfiles = shuffledProfiles.slice(0, 4)
+
+          // Update the selectedProfiles state
+          setSelectedProfiles(selectedProfiles)
+        } catch (error) {
+          console.error('Error fetching profiles:', error)
+          // Handle error here
+        }
+      }
+    }
+
+    fetchAllProfiles()
+  }, [dispatch, userName])
 
   return (
     <>
@@ -93,218 +139,14 @@ const MiniProfile = () => {
             <div className="pb-2 overflow-visible bg-transparent flex flex-col box-border static items-stretch justify-start">
               <div className="h-auto overflow-auto">
                 <div className="flex flex-col pb-0 pt-1 relative">
-                  {/* First Suggested */}
-                  <div className="w-full max-w-full block">
-                    <div className="py-2 overflow-visible px-4 flex flex-col static items-stretch justify-start  ">
-                      <div className="min-w-0 justify-center flex-col box-border flex relative">
-                        <div className="flex-nowrap box-border flex flex-row items-center justify-between relative">
-                          {/* Profile Picture */}
-                          <div className="min-w-0 max-w-full w-[44px] flex-col flex self-center box-border relative z-0">
-                            <div className="overflow-visible mr-2 bg-transparent flex flex-col box-border static items-stretch self-auto justify-start">
-                              <div className="self-center block relative w-[44px]">
-                                <img
-                                  src={defaultProfilePicture}
-                                  alt="Profile Picture"
-                                  className="h-[36px] w-[36px]"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          {/* UserName + FullName */}
-                          <div className="min-w-0 flex-shrink basis-auto max-w-full flex-col flex flex-wrap pt-0 flex-grow box-border justify-between relative z-0">
-                            <div className="min-w-0 max-w-full flex flex-col box-border relative flex-grow z-0">
-                              <div className="overflow-visible bg-transparent box-border flex flex-col static justify-start self-auto items-start">
-                                {/* UserName */}
-                                <div className="overflow-visible bg-transparent box-border static items-stretch flex flex-col self-auto justify-start flex-grow ">
-                                  <span className="overflow-hidden font-semibold text-ellipsis inline bg-transparent box-border cursor-pointer text-[14px] text-black ">
-                                    {userName}
-                                  </span>
-                                </div>
-                                {/* FullName */}
-                                <span className="leading-[18px] overflow-visible max-w-full font-normal break-words text-[#737373] text-[12px] relative block whitespace-pre-line font-system ">
-                                  <span className="overflow-hidden max-w-full whitespace-nowrap text-ellipsis block">
-                                    <div className="overflow-visible bg-transparent flex flex-col static items-stretch justify-start ">
-                                      <span className="leading-[18px] max-w-full inline ">
-                                        {fullName}
-                                      </span>
-                                    </div>
-                                  </span>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Switch */}
-                          <div className="min-w-0 max-w-full flex-col flex self-center box-border relative z-0">
-                            <div className="overflow-visible flex-shrink bg-transparent box-border static items-stretch flex flex-row self-auto justify-start ml-[12px]">
-                              <div className="h-auto w-auto font-bold leading-[18px] cursor-pointer font-system bg-transparent items-center text-center relative text-[12px] text-[#42b3ff] inline-flex">
-                                Follow
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Second Suggested */}
-                  <div className="w-full max-w-full block">
-                    <div className="py-2 overflow-visible px-4 flex flex-col static items-stretch justify-start  ">
-                      <div className="min-w-0 justify-center flex-col box-border flex relative">
-                        <div className="flex-nowrap box-border flex flex-row items-center justify-between relative">
-                          {/* Profile Picture */}
-                          <div className="min-w-0 max-w-full w-[44px] flex-col flex self-center box-border relative z-0">
-                            <div className="overflow-visible mr-2 bg-transparent flex flex-col box-border static items-stretch self-auto justify-start">
-                              <div className="self-center block relative w-[44px]">
-                                <img
-                                  src={defaultProfilePicture}
-                                  alt="Profile Picture"
-                                  className="h-[36px] w-[36px]"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          {/* UserName + FullName */}
-                          <div className="min-w-0 flex-shrink basis-auto max-w-full flex-col flex flex-wrap pt-0 flex-grow box-border justify-between relative z-0">
-                            <div className="min-w-0 max-w-full flex flex-col box-border relative flex-grow z-0">
-                              <div className="overflow-visible bg-transparent box-border flex flex-col static justify-start self-auto items-start">
-                                {/* UserName */}
-                                <div className="overflow-visible bg-transparent box-border static items-stretch flex flex-col self-auto justify-start flex-grow ">
-                                  <span className="overflow-hidden font-semibold text-ellipsis inline bg-transparent box-border cursor-pointer text-[14px] text-black ">
-                                    {userName}
-                                  </span>
-                                </div>
-                                {/* FullName */}
-                                <span className="leading-[18px] overflow-visible max-w-full font-normal break-words text-[#737373] text-[12px] relative block whitespace-pre-line font-system ">
-                                  <span className="overflow-hidden max-w-full whitespace-nowrap text-ellipsis block">
-                                    <div className="overflow-visible bg-transparent flex flex-col static items-stretch justify-start ">
-                                      <span className="leading-[18px] max-w-full inline ">
-                                        {fullName}
-                                      </span>
-                                    </div>
-                                  </span>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Switch */}
-                          <div className="min-w-0 max-w-full flex-col flex self-center box-border relative z-0">
-                            <div className="overflow-visible flex-shrink bg-transparent box-border static items-stretch flex flex-row self-auto justify-start ml-[12px]">
-                              <div className="h-auto w-auto font-bold leading-[18px] cursor-pointer font-system bg-transparent items-center text-center relative text-[12px] text-[#42b3ff] inline-flex">
-                                Follow
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Third Suggested */}
-                  <div className="w-full max-w-full block">
-                    <div className="py-2 overflow-visible px-4 flex flex-col static items-stretch justify-start  ">
-                      <div className="min-w-0 justify-center flex-col box-border flex relative">
-                        <div className="flex-nowrap box-border flex flex-row items-center justify-between relative">
-                          {/* Profile Picture */}
-                          <div className="min-w-0 max-w-full w-[44px] flex-col flex self-center box-border relative z-0">
-                            <div className="overflow-visible mr-2 bg-transparent flex flex-col box-border static items-stretch self-auto justify-start">
-                              <div className="self-center block relative w-[44px]">
-                                <img
-                                  src={defaultProfilePicture}
-                                  alt="Profile Picture"
-                                  className="h-[36px] w-[36px]"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          {/* UserName + FullName */}
-                          <div className="min-w-0 flex-shrink basis-auto max-w-full flex-col flex flex-wrap pt-0 flex-grow box-border justify-between relative z-0">
-                            <div className="min-w-0 max-w-full flex flex-col box-border relative flex-grow z-0">
-                              <div className="overflow-visible bg-transparent box-border flex flex-col static justify-start self-auto items-start">
-                                {/* UserName */}
-                                <div className="overflow-visible bg-transparent box-border static items-stretch flex flex-col self-auto justify-start flex-grow ">
-                                  <span className="overflow-hidden font-semibold text-ellipsis inline bg-transparent box-border cursor-pointer text-[14px] text-black ">
-                                    {userName}
-                                  </span>
-                                </div>
-                                {/* FullName */}
-                                <span className="leading-[18px] overflow-visible max-w-full font-normal break-words text-[#737373] text-[12px] relative block whitespace-pre-line font-system ">
-                                  <span className="overflow-hidden max-w-full whitespace-nowrap text-ellipsis block">
-                                    <div className="overflow-visible bg-transparent flex flex-col static items-stretch justify-start ">
-                                      <span className="leading-[18px] max-w-full inline ">
-                                        {fullName}
-                                      </span>
-                                    </div>
-                                  </span>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Switch */}
-                          <div className="min-w-0 max-w-full flex-col flex self-center box-border relative z-0">
-                            <div className="overflow-visible flex-shrink bg-transparent box-border static items-stretch flex flex-row self-auto justify-start ml-[12px]">
-                              <div className="h-auto w-auto font-bold leading-[18px] cursor-pointer font-system bg-transparent items-center text-center relative text-[12px] text-[#42b3ff] inline-flex">
-                                Follow
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Fourth Suggested */}
-                  <div className="w-full max-w-full block">
-                    <div className="py-2 overflow-visible px-4 flex flex-col static items-stretch justify-start  ">
-                      <div className="min-w-0 justify-center flex-col box-border flex relative">
-                        <div className="flex-nowrap box-border flex flex-row items-center justify-between relative">
-                          {/* Profile Picture */}
-                          <div className="min-w-0 max-w-full w-[44px] flex-col flex self-center box-border relative z-0">
-                            <div className="overflow-visible mr-2 bg-transparent flex flex-col box-border static items-stretch self-auto justify-start">
-                              <div className="self-center block relative w-[44px]">
-                                <img
-                                  src={defaultProfilePicture}
-                                  alt="Profile Picture"
-                                  className="h-[36px] w-[36px]"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          {/* UserName + FullName */}
-                          <div className="min-w-0 flex-shrink basis-auto max-w-full flex-col flex flex-wrap pt-0 flex-grow box-border justify-between relative z-0">
-                            <div className="min-w-0 max-w-full flex flex-col box-border relative flex-grow z-0">
-                              <div className="overflow-visible bg-transparent box-border flex flex-col static justify-start self-auto items-start">
-                                {/* UserName */}
-                                <div className="overflow-visible bg-transparent box-border static items-stretch flex flex-col self-auto justify-start flex-grow ">
-                                  <span className="overflow-hidden font-semibold text-ellipsis inline bg-transparent box-border cursor-pointer text-[14px] text-black ">
-                                    {userName}
-                                  </span>
-                                </div>
-                                {/* FullName */}
-                                <span className="leading-[18px] overflow-visible max-w-full font-normal break-words text-[#737373] text-[12px] relative block whitespace-pre-line font-system ">
-                                  <span className="overflow-hidden max-w-full whitespace-nowrap text-ellipsis block">
-                                    <div className="overflow-visible bg-transparent flex flex-col static items-stretch justify-start ">
-                                      <span className="leading-[18px] max-w-full inline ">
-                                        {fullName}
-                                      </span>
-                                    </div>
-                                  </span>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Switch */}
-                          <div className="min-w-0 max-w-full flex-col flex self-center box-border relative z-0">
-                            <div className="overflow-visible flex-shrink bg-transparent box-border static items-stretch flex flex-row self-auto justify-start ml-[12px]">
-                              <div className="h-auto w-auto font-bold leading-[18px] cursor-pointer font-system bg-transparent items-center text-center relative text-[12px] text-[#42b3ff] inline-flex">
-                                Follow
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  {selectedProfiles.map((profile) => (
+                    <Suggestion
+                      key={profile.userName}
+                      picturePath={profile.picturePath}
+                      userName={profile.userName}
+                      bio={profile.bio}
+                    />
+                  ))}
                 </div>
               </div>
             </div>

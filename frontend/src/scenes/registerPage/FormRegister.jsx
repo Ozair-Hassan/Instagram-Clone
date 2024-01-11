@@ -48,10 +48,6 @@ const form = () => {
       const body = JSON.stringify(values)
 
       const response = await axios.post('/api/auth/register', values)
-      const token = response.data
-
-      localStorage.setItem('token', token)
-      dispatch(setLogin({ token: token }))
 
       // Navigate to the home page after successful login and fetching user
       navigate('/')
