@@ -1,5 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
+// This is the component responsible for the icons being displayed on the NavBar component
+// icon text link are the props passed from NavBar
+
 const NavBarIcons = ({ icon, text, link }) => {
   return (
     <div className="w-full flex-grow block ">
