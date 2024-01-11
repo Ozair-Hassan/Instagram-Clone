@@ -8,10 +8,8 @@ import uploadFile from '../config/cloudStorage.js'
 // @access Private
 export const getAllProfiles = async (req, res) => {
   try {
-    // Find all profiles
     const profiles = await Profile.find({})
 
-    // Check if profiles exist
     if (!profiles || profiles.length === 0) {
       return res.status(404).json({ msg: 'No profiles found' })
     }
@@ -28,10 +26,8 @@ export const getAllProfiles = async (req, res) => {
 // @access Private
 export const getProfile = async (req, res) => {
   try {
-    // Extract userName from the route parametersEdit
     const { userName } = req.params
 
-    // Find the profile based on userName
     const profile = await Profile.findOne({ userName })
 
     if (!profile) {

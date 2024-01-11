@@ -12,6 +12,7 @@ import multer from 'multer'
 const router = express.Router()
 const upload = multer({ storage: multer.memoryStorage() })
 
+// Fetch all profiles
 router.get('/', authMiddleware, getAllProfiles)
 
 // Fetch a profile based on userName
